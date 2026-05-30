@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-question-response-structure.json",
+  "name": "QuestionResponse",
+  "description": "Response envelope returned by /api.php containing the question batch.",
+  "type": "object",
+  "properties": {
+    "response_code": {
+      "type": "int32",
+      "description": "Outcome code: 0 success, 1 no results, 2 invalid parameter, 3 token not found, 4 token empty, 5 rate limit exceeded.",
+      "enum": [0, 1, 2, 3, 4, 5]
+    },
+    "response_message": {
+      "type": "string",
+      "description": "Human-readable description of the response code (optional)."
+    },
+    "results": {
+      "type": "array",
+      "description": "Array of trivia questions matching the request parameters.",
+      "items": {"$ref": "#/definitions/Question"}
+    }
+  },
+  "required": ["response_code", "results"],
+  "definitions": {
+    "Question": {
+      "type": "object",
+      "description": "A single trivia question with its category, difficulty, and answers.",
+      "properties": {
+        "type": {"type": "string", "enum": ["multiple", "boolean"]},
+        "difficulty": {"type": "string", "enum": ["easy", "medium", "hard"]},
+        "category": {"type": "string"},
+        "question": {"type": "string"},
+        "correct_answer": {"type": "string"},
+        "incorrect_answers": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": [
+        "type",
+        "difficulty",
+        "category",
+        "question",
+        "correct_answer",
+        "incorrect_answers"
+      ]
+    }
+  }
+}

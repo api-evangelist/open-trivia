@@ -1,0 +1,275 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Open Trivia Database"
+  description: >-
+    Vocabulary capturing the operational dimension (OpenAPI) and capability
+    dimension (Naftiko) of the Open Trivia Database — a free, user-contributed
+    trivia question API operated by Pixeltail Games LLC. Maps four business
+    surfaces (Questions, Categories, Statistics, Tokens) into a unified taxonomy.
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+# OPERATIONAL DIMENSION (from OpenAPI)
+operational:
+
+  apis:
+    - name: "Open Trivia Database API"
+      namespace: "open-trivia"
+      version: "1.0"
+      baseUrl: "https://opentdb.com"
+      status: active
+      authentication: none
+      license: "CC BY-SA 4.0"
+
+  resources:
+    - name: "Questions"
+      api: "open-trivia"
+      domain: "trivia"
+      paths:
+        - "/api.php"
+      actions:
+        - "list"
+    - name: "Categories"
+      api: "open-trivia"
+      domain: "trivia"
+      paths:
+        - "/api_category.php"
+      actions:
+        - "list"
+    - name: "CategoryCount"
+      api: "open-trivia"
+      domain: "trivia"
+      paths:
+        - "/api_count.php"
+      actions:
+        - "get"
+    - name: "GlobalStatistics"
+      api: "open-trivia"
+      domain: "statistics"
+      paths:
+        - "/api_count_global.php"
+      actions:
+        - "get"
+    - name: "SessionToken"
+      api: "open-trivia"
+      domain: "session"
+      paths:
+        - "/api_token.php"
+      actions:
+        - "create"
+        - "reset"
+
+  actions:
+    - name: "list"
+      verb: "GET"
+      pattern: "read"
+      description: "Retrieve a collection of resources."
+    - name: "get"
+      verb: "GET"
+      pattern: "read"
+      description: "Retrieve a single resource by identifier."
+    - name: "create"
+      verb: "GET"
+      pattern: "write"
+      description: "Create a new session token (OpenTDB uses GET semantics for token issuance)."
+    - name: "reset"
+      verb: "GET"
+      pattern: "write"
+      description: "Reset an existing session token, clearing its served-question set."
+
+  schemas:
+    core:
+      - name: "Question"
+        properties: ["type", "difficulty", "category", "question", "correct_answer", "incorrect_answers"]
+      - name: "Category"
+        properties: ["id", "name"]
+    counts:
+      - name: "CategoryQuestionCount"
+        properties: ["total_question_count", "total_easy_question_count", "total_medium_question_count", "total_hard_question_count"]
+      - name: "GlobalCounts"
+        properties: ["total_num_of_questions", "total_num_of_pending_questions", "total_num_of_verified_questions", "total_num_of_rejected_questions"]
+    envelopes:
+      - name: "ResponseEnvelope"
+        properties: ["response_code", "response_message"]
+      - name: "QuestionResponse"
+        properties: ["response_code", "results"]
+      - name: "CategoryListResponse"
+        properties: ["trivia_categories"]
+      - name: "CategoryCountResponse"
+        properties: ["category_id", "category_question_count"]
+      - name: "GlobalCountResponse"
+        properties: ["overall", "categories"]
+      - name: "TokenResponse"
+        properties: ["response_code", "response_message", "token"]
+
+  parameters:
+    filters:
+      - name: "category"
+        type: integer
+        description: "Numeric category identifier (9-32)."
+      - name: "difficulty"
+        type: string
+        description: "Restrict to easy, medium, or hard."
+      - name: "type"
+        type: string
+        description: "Restrict to multiple or boolean."
+    pagination:
+      - name: "amount"
+        type: integer
+        description: "Number of questions to return (1-50). OpenTDB's only sizing parameter."
+    encoding:
+      - name: "encode"
+        type: string
+        description: "Response encoding: urlLegacy, url3986, or base64. Defaults to HTML-entity."
+    session:
+      - name: "token"
+        type: string
+        description: "Session token from /api_token.php that prevents duplicate questions."
+      - name: "command"
+        type: string
+        description: "Token operation: request or reset."
+
+  enums:
+    difficulty:
+      - easy
+      - medium
+      - hard
+    question_type:
+      - multiple
+      - boolean
+    encoding:
+      - urlLegacy
+      - url3986
+      - base64
+    response_code:
+      - 0   # Success
+      - 1   # No Results
+      - 2   # Invalid Parameter
+      - 3   # Token Not Found
+      - 4   # Token Empty
+      - 5   # Rate Limit
+    token_command:
+      - request
+      - reset
+
+  authentication:
+    schemes: []
+    notes: >-
+      The Open Trivia Database API requires no authentication. Optional session
+      tokens are issued for deduplication, not for access control.
+
+# CAPABILITY DIMENSION (from Naftiko)
+capability:
+
+  workflows:
+    - name: "open-trivia-questions"
+      file: "capabilities/open-trivia-questions.yaml"
+      description: "Retrieve a batch of trivia questions with optional filters and session token."
+      apis: ["open-trivia"]
+      tool_count: 1
+      personas: ["game-developer", "quiz-app", "ai-agent"]
+      domains: ["trivia"]
+    - name: "open-trivia-categories"
+      file: "capabilities/open-trivia-categories.yaml"
+      description: "Discover available categories and per-difficulty counts."
+      apis: ["open-trivia"]
+      tool_count: 2
+      personas: ["game-developer", "content-curator"]
+      domains: ["trivia"]
+    - name: "open-trivia-statistics"
+      file: "capabilities/open-trivia-statistics.yaml"
+      description: "Inspect aggregate database statistics — verified, pending, rejected."
+      apis: ["open-trivia"]
+      tool_count: 1
+      personas: ["analyst", "moderator"]
+      domains: ["statistics"]
+    - name: "open-trivia-tokens"
+      file: "capabilities/open-trivia-tokens.yaml"
+      description: "Issue and reset session tokens that prevent duplicate questions."
+      apis: ["open-trivia"]
+      tool_count: 2
+      personas: ["game-developer", "quiz-app"]
+      domains: ["session"]
+
+  personas:
+    - id: "game-developer"
+      name: "Game Developer"
+      description: "Builds quiz games and trivia features that consume OpenTDB."
+      workflows: ["open-trivia-questions", "open-trivia-categories", "open-trivia-tokens"]
+    - id: "quiz-app"
+      name: "Quiz Application"
+      description: "Runtime consumer that needs question batches and dedupe tokens."
+      workflows: ["open-trivia-questions", "open-trivia-tokens"]
+    - id: "ai-agent"
+      name: "AI Agent"
+      description: "LLM agent or assistant fetching trivia questions for users."
+      workflows: ["open-trivia-questions"]
+    - id: "content-curator"
+      name: "Content Curator"
+      description: "Surveys available categories before designing quiz packs."
+      workflows: ["open-trivia-categories"]
+    - id: "analyst"
+      name: "Database Analyst"
+      description: "Tracks database health and verified-vs-pending ratios."
+      workflows: ["open-trivia-statistics"]
+    - id: "moderator"
+      name: "Moderator"
+      description: "Pixeltail-side moderator approving or rejecting submitted questions."
+      workflows: ["open-trivia-statistics"]
+
+  domains:
+    - name: "trivia"
+      description: "Core trivia content — questions and the categories that organize them."
+      resources: ["Questions", "Categories", "CategoryCount"]
+      workflows: ["open-trivia-questions", "open-trivia-categories"]
+    - name: "statistics"
+      description: "Aggregate moderation and database health metrics."
+      resources: ["GlobalStatistics"]
+      workflows: ["open-trivia-statistics"]
+    - name: "session"
+      description: "Six-hour session tokens that prevent duplicate questions."
+      resources: ["SessionToken"]
+      workflows: ["open-trivia-tokens"]
+
+  namespaces:
+    consumed:
+      - open-trivia-questions
+      - open-trivia-categories
+      - open-trivia-statistics
+      - open-trivia-tokens
+    rest_exposed:
+      - "open-trivia-questions-rest (port 8080)"
+      - "open-trivia-categories-rest (port 8081)"
+      - "open-trivia-statistics-rest (port 8082)"
+      - "open-trivia-tokens-rest (port 8083)"
+    mcp_exposed:
+      - open-trivia-questions-mcp
+      - open-trivia-categories-mcp
+      - open-trivia-statistics-mcp
+      - open-trivia-tokens-mcp
+
+  binds: []
+
+# CROSS-REFERENCE
+crossReference:
+  - resource: "Questions"
+    operations: ["getQuestions (GET /api.php)"]
+    workflows: ["open-trivia-questions"]
+    personas: ["game-developer", "quiz-app", "ai-agent"]
+  - resource: "Categories"
+    operations: ["getCategories (GET /api_category.php)"]
+    workflows: ["open-trivia-categories"]
+    personas: ["game-developer", "content-curator"]
+  - resource: "CategoryCount"
+    operations: ["getCategoryCount (GET /api_count.php)"]
+    workflows: ["open-trivia-categories"]
+    personas: ["game-developer", "content-curator"]
+  - resource: "GlobalStatistics"
+    operations: ["getGlobalCount (GET /api_count_global.php)"]
+    workflows: ["open-trivia-statistics"]
+    personas: ["analyst", "moderator"]
+  - resource: "SessionToken"
+    operations: ["manageToken (GET /api_token.php)"]
+    workflows: ["open-trivia-tokens"]
+    personas: ["game-developer", "quiz-app"]

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-category-question-count-schema.json",
+  "title": "CategoryQuestionCount",
+  "description": "Question counts for a single category broken down by difficulty.",
+  "type": "object",
+  "required": [
+    "total_question_count",
+    "total_easy_question_count",
+    "total_medium_question_count",
+    "total_hard_question_count"
+  ],
+  "properties": {
+    "total_question_count": {
+      "type": "integer",
+      "description": "Total number of questions across all difficulty levels for this category.",
+      "example": 469
+    },
+    "total_easy_question_count": {
+      "type": "integer",
+      "description": "Number of easy questions in this category.",
+      "example": 215
+    },
+    "total_medium_question_count": {
+      "type": "integer",
+      "description": "Number of medium-difficulty questions in this category.",
+      "example": 177
+    },
+    "total_hard_question_count": {
+      "type": "integer",
+      "description": "Number of hard questions in this category.",
+      "example": 77
+    }
+  }
+}

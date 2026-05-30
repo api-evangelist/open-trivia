@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-category-count-response-schema.json",
+  "title": "CategoryCountResponse",
+  "description": "Response returned by /api_count.php.",
+  "type": "object",
+  "required": ["category_id", "category_question_count"],
+  "properties": {
+    "category_id": {
+      "type": "integer",
+      "description": "Numeric identifier for the requested category.",
+      "example": 9
+    },
+    "category_question_count": {
+      "$ref": "open-trivia-category-question-count-schema.json"
+    }
+  }
+}

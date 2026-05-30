@@ -1,0 +1,340 @@
+# Spectral ruleset for the Open Trivia Database API (api-evangelist/open-trivia).
+#
+# These rules codify the observed conventions of the Open Trivia Database:
+# - Single-host JSON REST endpoints under https://opentdb.com
+# - .php-style endpoints documented as discrete operations
+# - snake_case JSON property names
+# - Numeric `response_code` envelope across all responses
+# - All operations are HTTP GET with query parameters only
+#
+# Severities follow the project convention: error = breaks tooling/clients,
+# warn = should be fixed, info = best-practice nudge.
+
+extends:
+  - spectral:oas
+
+rules:
+
+  # ───────────────────────────── INFO / METADATA ────────────────────────────
+
+  info-title-must-mention-open-trivia:
+    description: The info.title should begin with "Open Trivia" to identify the provider.
+    message: '{{property}} should start with "Open Trivia"'
+    given: $.info.title
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Open Trivia'
+
+  info-description-required:
+    description: A meaningful info.description is required.
+    given: $.info
+    severity: error
+    then:
+      field: description
+      function: truthy
+
+  info-description-min-length:
+    description: info.description must be at least 60 characters.
+    given: $.info.description
+    severity: warn
+    then:
+      function: length
+      functionOptions:
+        min: 60
+
+  info-license-required:
+    description: A license block (CC BY-SA 4.0 for OpenTDB) must be declared.
+    given: $.info
+    severity: warn
+    then:
+      field: license
+      function: truthy
+
+  info-contact-required:
+    description: A contact block must be declared so consumers can reach the provider.
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+
+  # ───────────────────────────── OPENAPI VERSION ────────────────────────────
+
+  openapi-version-3-required:
+    description: Use OpenAPI 3.0.3 (the version this repo standardizes on).
+    given: $.openapi
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^3\\.0\\.'
+
+  # ──────────────────────────────── SERVERS ─────────────────────────────────
+
+  servers-required:
+    description: At least one server entry must be declared.
+    given: $
+    severity: error
+    then:
+      field: servers
+      function: truthy
+
+  servers-must-be-https:
+    description: All server URLs must use HTTPS — opentdb.com only serves over HTTPS.
+    given: $.servers[*].url
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+
+  servers-must-be-opentdb:
+    description: Server URL must point at https://opentdb.com.
+    given: $.servers[*].url
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://opentdb\\.com'
+
+  # ───────────────────────────────── PATHS ──────────────────────────────────
+
+  paths-must-be-php-endpoints:
+    description: All paths follow OpenTDB's documented /api*.php convention.
+    given: $.paths.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/api[a-z_]*\\.php$'
+
+  paths-no-trailing-slash:
+    description: Paths must not end with a trailing slash.
+    given: $.paths.*~
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '.+/$'
+
+  paths-snake-case-segments:
+    description: Path segments use snake_case (matching api_count_global.php style).
+    given: $.paths.*~
+    severity: info
+    then:
+      function: pattern
+      functionOptions:
+        match: '^/[a-z_]+\\.php$'
+
+  # ──────────────────────────────── OPERATIONS ──────────────────────────────
+
+  operation-only-get-allowed:
+    description: OpenTDB exposes only HTTP GET operations.
+    given: $.paths[*][?(@property == 'post' || @property == 'put' || @property == 'patch' || @property == 'delete' || @property == 'head' || @property == 'options' || @property == 'trace')]
+    severity: error
+    then:
+      function: falsy
+
+  operation-summary-required:
+    description: Every operation must have a summary.
+    given: $.paths[*][get,post,put,patch,delete].summary
+    severity: error
+    then:
+      function: truthy
+
+  operation-summary-open-trivia-prefix:
+    description: Operation summaries should start with "Open Trivia ".
+    given: $.paths[*][get].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^Open Trivia '
+
+  operation-description-required:
+    description: Every operation must have a description.
+    given: $.paths[*][get,post,put,patch,delete].description
+    severity: warn
+    then:
+      function: truthy
+
+  operation-operation-id-required:
+    description: Every operation must declare an operationId.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+
+  operation-operation-id-camel-case:
+    description: operationId must be camelCase (e.g. getQuestions).
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-zA-Z0-9]+$'
+
+  operation-tags-required:
+    description: Every operation must declare at least one tag.
+    given: $.paths[*][get,post,put,patch,delete].tags
+    severity: warn
+    then:
+      function: length
+      functionOptions:
+        min: 1
+
+  operation-must-have-microcks-extension:
+    description: Operations should declare x-microcks-operation for mock-server compatibility.
+    given: $.paths[*][get,post,put,patch,delete]
+    severity: info
+    then:
+      field: x-microcks-operation
+      function: truthy
+
+  # ─────────────────────────────────── TAGS ─────────────────────────────────
+
+  global-tags-required:
+    description: Global tags array must be declared so each operation tag is described.
+    given: $
+    severity: warn
+    then:
+      field: tags
+      function: truthy
+
+  tag-title-case:
+    description: Tag names must use Title Case (e.g. Questions, Categories, Statistics).
+    given: $.tags[*].name
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[A-Z][A-Za-z0-9 ]+$'
+
+  tag-description-required:
+    description: Every declared tag should include a description.
+    given: $.tags[*]
+    severity: info
+    then:
+      field: description
+      function: truthy
+
+  # ──────────────────────────────── PARAMETERS ──────────────────────────────
+
+  parameter-description-required:
+    description: Every parameter must include a description.
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  parameter-schema-required:
+    description: Every parameter must declare a schema with a type.
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    severity: error
+    then:
+      field: schema
+      function: truthy
+
+  parameter-snake-case:
+    description: Query parameters use snake_case (matching the OpenTDB query convention).
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')].name
+    severity: info
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  # ─────────────────────────────── REQUEST BODIES ───────────────────────────
+
+  no-request-bodies-allowed:
+    description: OpenTDB never uses request bodies — all input is via query parameters.
+    given: $.paths[*][get,post,put,patch,delete].requestBody
+    severity: warn
+    then:
+      function: falsy
+
+  # ───────────────────────────────── RESPONSES ──────────────────────────────
+
+  response-success-required:
+    description: Every operation must define a 200 success response.
+    given: $.paths[*][get,post,put,patch,delete].responses
+    severity: error
+    then:
+      field: '200'
+      function: truthy
+
+  response-description-required:
+    description: Every response must include a description.
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    severity: error
+    then:
+      field: description
+      function: truthy
+
+  response-json-content-type:
+    description: Responses must be JSON.
+    given: $.paths[*][get,post,put,patch,delete].responses[*].content
+    severity: error
+    then:
+      field: application/json
+      function: truthy
+
+  response-rate-limit-documented:
+    description: GET /api.php should document its 429 rate-limit response.
+    given: $.paths['/api.php'].get.responses
+    severity: warn
+    then:
+      field: '429'
+      function: truthy
+
+  # ────────────────────────────────── SCHEMAS ───────────────────────────────
+
+  schema-property-snake-case:
+    description: Schema property names use snake_case (matching the JSON responses).
+    given: $.components.schemas[*].properties.*~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][a-z0-9_]*$'
+
+  schema-description-required:
+    description: Every top-level component schema must include a description.
+    given: $.components.schemas[*]
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  schema-response-envelope-must-have-response-code:
+    description: The shared envelope schema must include the numeric response_code field.
+    given: $.components.schemas.ResponseEnvelope.properties
+    severity: error
+    then:
+      field: response_code
+      function: truthy
+
+  # ──────────────────────────────── SECURITY ────────────────────────────────
+
+  no-security-required:
+    description: OpenTDB has no authentication — no security schemes should be required.
+    given: $.security
+    severity: info
+    then:
+      function: length
+      functionOptions:
+        max: 0
+
+  # ───────────────────────────── GENERAL QUALITY ────────────────────────────
+
+  examples-encouraged-on-responses:
+    description: Responses should include named examples for tooling and mock servers.
+    given: $.paths[*][get,post,put,patch,delete].responses[*].content.application/json
+    severity: info
+    then:
+      field: examples
+      function: truthy

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-category-count-response-structure.json",
+  "name": "CategoryCountResponse",
+  "description": "Response returned by /api_count.php.",
+  "type": "object",
+  "properties": {
+    "category_id": {"type": "int32", "description": "Numeric identifier for the requested category."},
+    "category_question_count": {"$ref": "#/definitions/CategoryQuestionCount"}
+  },
+  "required": ["category_id", "category_question_count"],
+  "definitions": {
+    "CategoryQuestionCount": {
+      "type": "object",
+      "properties": {
+        "total_question_count": {"type": "int32"},
+        "total_easy_question_count": {"type": "int32"},
+        "total_medium_question_count": {"type": "int32"},
+        "total_hard_question_count": {"type": "int32"}
+      },
+      "required": [
+        "total_question_count",
+        "total_easy_question_count",
+        "total_medium_question_count",
+        "total_hard_question_count"
+      ]
+    }
+  }
+}

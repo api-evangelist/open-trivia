@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-token-response-structure.json",
+  "name": "TokenResponse",
+  "description": "Response returned by /api_token.php — request or reset a session token.",
+  "type": "object",
+  "properties": {
+    "response_code": {
+      "type": "int32",
+      "description": "Outcome code: 0 success, 3 token not found, 4 token empty.",
+      "enum": [0, 1, 2, 3, 4, 5]
+    },
+    "response_message": {
+      "type": "string",
+      "description": "Human-readable description of the response code."
+    },
+    "token": {
+      "type": "string",
+      "description": "The session token. Present on command=request and on a successful command=reset call."
+    }
+  },
+  "required": ["response_code"]
+}

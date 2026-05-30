@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-global-count-response-schema.json",
+  "title": "GlobalCountResponse",
+  "description": "Response returned by /api_count_global.php.",
+  "type": "object",
+  "required": ["overall", "categories"],
+  "properties": {
+    "overall": {
+      "$ref": "open-trivia-global-counts-schema.json"
+    },
+    "categories": {
+      "type": "object",
+      "description": "Per-category breakdown keyed by numeric category identifier as a string. Each value uses the same shape as the overall block.",
+      "additionalProperties": {
+        "$ref": "open-trivia-global-counts-schema.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-question-schema.json",
+  "title": "Question",
+  "description": "A single trivia question with its category, difficulty, and answers.",
+  "type": "object",
+  "required": [
+    "type",
+    "difficulty",
+    "category",
+    "question",
+    "correct_answer",
+    "incorrect_answers"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Question format — multiple-choice or true/false.",
+      "enum": ["multiple", "boolean"],
+      "example": "multiple"
+    },
+    "difficulty": {
+      "type": "string",
+      "description": "Difficulty level assigned to the question.",
+      "enum": ["easy", "medium", "hard"],
+      "example": "medium"
+    },
+    "category": {
+      "type": "string",
+      "description": "Human-readable category name (HTML-entity encoded by default).",
+      "example": "Science &amp; Nature"
+    },
+    "question": {
+      "type": "string",
+      "description": "The trivia question prompt, encoded per the encode parameter.",
+      "example": "What is the chemical symbol for gold?"
+    },
+    "correct_answer": {
+      "type": "string",
+      "description": "The correct answer to the question.",
+      "example": "Au"
+    },
+    "incorrect_answers": {
+      "type": "array",
+      "description": "One incorrect answer for boolean questions, or three for multiple-choice.",
+      "items": {"type": "string"},
+      "example": ["Ag", "Go", "Gd"]
+    }
+  }
+}

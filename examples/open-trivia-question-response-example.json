@@ -1,0 +1,29 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Science &amp; Nature",
+      "question": "What is the chemical symbol for gold?",
+      "correct_answer": "Au",
+      "incorrect_answers": ["Ag", "Go", "Gd"]
+    },
+    {
+      "type": "boolean",
+      "difficulty": "easy",
+      "category": "General Knowledge",
+      "question": "The Pacific Ocean is the largest ocean on Earth.",
+      "correct_answer": "True",
+      "incorrect_answers": ["False"]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Entertainment: Video Games",
+      "question": "What was the first commercially successful video game?",
+      "correct_answer": "Pong",
+      "incorrect_answers": ["Spacewar!", "Tennis for Two", "Computer Space"]
+    }
+  ]
+}

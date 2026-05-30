@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-question-response-schema.json",
+  "title": "QuestionResponse",
+  "description": "Response envelope returned by /api.php containing the question batch.",
+  "type": "object",
+  "required": ["response_code", "results"],
+  "properties": {
+    "response_code": {
+      "type": "integer",
+      "description": "Outcome code: 0 success, 1 no results, 2 invalid parameter, 3 token not found, 4 token empty, 5 rate limit exceeded.",
+      "enum": [0, 1, 2, 3, 4, 5],
+      "example": 0
+    },
+    "response_message": {
+      "type": "string",
+      "description": "Human-readable description of the response code (optional).",
+      "example": "Success"
+    },
+    "results": {
+      "type": "array",
+      "description": "Array of trivia questions matching the request parameters.",
+      "items": {
+        "$ref": "open-trivia-question-schema.json"
+      }
+    }
+  }
+}

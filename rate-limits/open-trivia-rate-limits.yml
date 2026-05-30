@@ -1,0 +1,67 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Open Trivia Database
+providerId: open-trivia
+created: '2026-05-30'
+modified: '2026-05-30'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Trivia
+  - Public APIs
+  - Open Source
+description: >-
+  The Open Trivia Database enforces a single, IP-scoped throttling rule on every
+  endpoint it exposes (api.php, api_category.php, api_count.php,
+  api_count_global.php, api_token.php). Each client IP is limited to one request
+  every five seconds. The API does not return rate-limit headers; throttling is
+  signalled through the standard response envelope by setting `response_code`
+  to 5 ("Rate Limit"). There is no paid tier or way to raise the limit — it
+  applies uniformly to all consumers.
+sources:
+  - https://opentdb.com/api_config.php
+  - https://opentdb.com/
+headers: {}
+responseCodes:
+  throttled: 429
+  throttledLegacy: 200
+limits:
+  - name: Per-IP global throttle
+    scope: IP
+    metric: requests_per_second
+    limit: 0.2
+    timeFrame: second
+    notes: >-
+      One request per IP every five seconds across every Open Trivia Database
+      endpoint. Equivalent to roughly 12 requests per minute and 720 per hour.
+      Exceeding the limit returns the standard envelope with response_code = 5;
+      some intermediaries may surface this as HTTP 429.
+policies:
+  - name: Single-bucket scope
+    description: >-
+      The five-second cooldown is shared across every endpoint. A call to
+      /api_category.php counts the same as a call to /api.php — pace the entire
+      client, not per endpoint.
+  - name: Use session tokens for batching
+    description: >-
+      To minimise the number of /api.php calls a client needs, request the
+      largest reasonable `amount` (up to 50) and pair it with a session token
+      from /api_token.php. The token guarantees no duplicates across calls until
+      reset or six-hour expiry, reducing wasted requests.
+  - name: Back off on response_code 5
+    description: >-
+      When `response_code` is 5, pause for at least five seconds before
+      retrying. Exponential backoff is not required but is recommended for
+      shared-IP environments (CI, datacenter NAT).
+  - name: No way to raise the limit
+    description: >-
+      The throttle applies to all consumers regardless of identity. There is no
+      API key, no paid tier, and no contact path to lift it. Hosting a local
+      mirror via the OpenTDB download script is the recommended escape hatch for
+      heavy workloads.
+  - name: Honour response_code over HTTP status
+    description: >-
+      Trust the JSON `response_code` field as the primary signal for both
+      success and throttling. The HTTP status is almost always 200, even when
+      throttled — making body parsing mandatory.

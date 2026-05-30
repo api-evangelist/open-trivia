@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-category-schema.json",
+  "title": "Category",
+  "description": "A trivia category identifier and name pair.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Numeric category identifier.",
+      "minimum": 9,
+      "maximum": 32,
+      "example": 9
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable category name.",
+      "example": "General Knowledge"
+    }
+  }
+}

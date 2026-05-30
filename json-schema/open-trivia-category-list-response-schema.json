@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-category-list-response-schema.json",
+  "title": "CategoryListResponse",
+  "description": "Response returned by /api_category.php.",
+  "type": "object",
+  "required": ["trivia_categories"],
+  "properties": {
+    "trivia_categories": {
+      "type": "array",
+      "description": "All trivia categories currently available in the database.",
+      "items": {
+        "$ref": "open-trivia-category-schema.json"
+      }
+    }
+  }
+}

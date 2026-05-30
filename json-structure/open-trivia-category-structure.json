@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-category-structure.json",
+  "name": "Category",
+  "description": "A trivia category identifier and name pair.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "int32",
+      "description": "Numeric category identifier.",
+      "minimum": 9,
+      "maximum": 32
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable category name."
+    }
+  },
+  "required": ["id", "name"]
+}

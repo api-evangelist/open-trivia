@@ -1,32 +1,153 @@
 aid: open-trivia
-name: Open Trivia
-description: "Trivia Questions"
+name: Open Trivia Database
+description: >-
+  The Open Trivia Database (OpenTDB) is a free, user-contributed trivia question
+  database operated by Pixeltail Games LLC. It offers a JSON REST API for
+  retrieving thousands of community-verified trivia questions across 24
+  categories and three difficulty levels, with optional session tokens to prevent
+  duplicate questions. The service is licensed Creative Commons
+  Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point
+  of use, and enforces a single throttling rule: one request per IP every five
+  seconds.
 url: https://opentdb.com/api_config.php
+image: https://opentdb.com/images/logo-banner.png
+humanURL: https://opentdb.com
+baseURL: https://opentdb.com
 specificationVersion: '0.20'
 created: '2026-05-28'
-modified: '2026-05-28'
+modified: '2026-05-30'
 x-source: public-apis/public-apis
+x-artifacts:
+  openapi: 1
+  jsonSchema: 9
+  jsonStructure: 9
+  jsonLd: 1
+  examples: 9
+  capabilities: 4
+  rules: 1
+  vocabulary: 1
+  rateLimits: 1
 x-category: "Games & Comics"
+x-type: opensource
 x-tier: 3
-x-tier-reason: bulk-registered-from-public-apis
+x-tier-reason: Free public service; user-contributed open database with CC BY-SA 4.0 licensing.
+x-license: CC-BY-SA-4.0
+x-operator: Pixeltail Games LLC
 tags:
+  - Trivia
   - Games And Comics
+  - Quiz
+  - Open Data
   - Public APIs
+  - Open Source
 apis:
-  - name: Open Trivia
-    description: "Trivia Questions"
+  - name: Open Trivia Database API
+    description: >-
+      JSON REST API that returns multiple-choice and true/false trivia questions
+      drawn from a community-curated database of over 5,000 verified questions
+      across 24 categories. Supports filtering by category, difficulty, and
+      question type, optional response encoding (HTML entities, URL legacy,
+      RFC 3986, Base64), and session tokens to prevent duplicate questions
+      within a six-hour window.
+    image: https://opentdb.com/images/logo-banner.png
     humanURL: https://opentdb.com/api_config.php
-    baseURL: https://opentdb.com/api_config.php
+    baseURL: https://opentdb.com
     tags:
+      - Trivia
+      - Quiz
+      - Questions
       - Games And Comics
     properties:
       - type: Documentation
         url: https://opentdb.com/api_config.php
+      - type: OpenAPI
+        url: openapi/open-trivia-openapi.yml
+      - type: JSONSchema
+        url: json-schema/open-trivia-question-schema.json
+      - type: JSONSchema
+        url: json-schema/open-trivia-category-schema.json
+      - type: JSONStructure
+        url: json-structure/open-trivia-question-structure.json
+      - type: JSONLD
+        url: json-ld/open-trivia-context.jsonld
+      - type: NaftikoCapability
+        title: Questions Capability
+        url: capabilities/open-trivia-questions.yaml
+      - type: NaftikoCapability
+        title: Categories Capability
+        url: capabilities/open-trivia-categories.yaml
+      - type: NaftikoCapability
+        title: Statistics Capability
+        url: capabilities/open-trivia-statistics.yaml
+      - type: NaftikoCapability
+        title: Tokens Capability
+        url: capabilities/open-trivia-tokens.yaml
+      - type: SpectralRules
+        url: rules/open-trivia-rules.yml
+      - type: RateLimits
+        url: rate-limits/open-trivia-rate-limits.yml
+      - type: Vocabulary
+        url: vocabulary/open-trivia-vocabulary.yml
+      - type: Examples
+        url: examples/open-trivia-question-response-example.json
+      - type: SignUp
+        url: https://opentdb.com/api_config.php
+      - type: ContributeQuestions
+        url: https://opentdb.com/contribute.php
+      - type: BrowseQuestions
+        url: https://opentdb.com/browse.php
+      - type: GameLink
+        url: https://opentdb.com/game.php
+      - type: Statistics
+        url: https://opentdb.com/api_count_global.php
 common:
   - type: Website
+    url: https://opentdb.com
+  - type: Documentation
     url: https://opentdb.com/api_config.php
+  - type: Support
+    url: https://opentdb.com/contact.php
+  - type: TermsOfService
+    url: https://opentdb.com/terms.php
+  - type: License
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+  - type: Donate
+    url: https://ko-fi.com/pixeltailgames
   - type: PublicAPIsListing
     url: https://github.com/public-apis/public-apis
+  - type: CommunityIntegrations
+    title: Community SDKs and Integrations
+    url: https://github.com/topics/opentdb
+  - type: SDK
+    title: Open Trivia DB Wrapper (TypeScript / JavaScript)
+    url: https://github.com/Elitezen/open-trivia-db-wrapper
+  - type: SDK
+    title: Python Trivia API (Python)
+    url: https://github.com/MaT1g3R/Python-Trivia-API
+  - type: SDK
+    title: OpenTDB4j (Java)
+    url: https://github.com/crnvl/OpenTDB4j
+  - type: SDK
+    title: opentdb-api (JavaScript)
+    url: https://github.com/blobfysh/opentdb-api
+  - type: Tools
+    title: MCP Server (Community — pipeworx-io)
+    url: https://github.com/pipeworx-io/mcp-trivia
+  - type: Tools
+    title: Discord Trivia Bot (Community)
+    url: https://github.com/LakeYS/Discord-Trivia-Bot
+  - type: Tools
+    title: OTDB Source Download Script (Community)
+    url: https://github.com/QuartzWarrior/OTDB-Source
+  - type: CodeExamples
+    title: Ignite Bowser Trivia App (TypeScript)
+    url: https://github.com/robinheinze/ignite-trivia
+  - type: CodeExamples
+    title: React Native Trivia Quiz (JavaScript)
+    url: https://github.com/computationalcore/react-native-trivia-quiz
+  - type: CodeExamples
+    title: Vue Quiz App (Vue 3)
+    url: https://github.com/supershaneski/vue-quiz-app
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

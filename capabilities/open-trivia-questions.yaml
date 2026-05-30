@@ -1,0 +1,98 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Open Trivia Database — Questions"
+  description: >-
+    Open Trivia Database — Questions. 1 operation. Lead operation: Open Trivia
+    Get Trivia Questions. Self-contained Naftiko capability covering one
+    OpenTDB business surface — retrieving batches of multiple-choice and
+    true/false trivia questions from the community-curated database.
+  tags:
+    - Open Trivia
+    - Trivia
+    - Questions
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+binds: []
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "open-trivia-questions"
+      baseUri: "https://opentdb.com"
+      description: "Open Trivia Database — Questions business capability. Self-contained, no shared references."
+      authentication:
+        type: none
+      resources:
+        - name: "questions"
+          path: "/api.php"
+          operations:
+            - name: "getQuestions"
+              method: GET
+              description: "Retrieve a batch of trivia questions filtered by category, difficulty, type, encoding, and session token."
+              inputParameters:
+                - name: "amount"
+                  in: query
+                  type: integer
+                  required: true
+                  description: "Number of questions to return (1-50)."
+                - name: "category"
+                  in: query
+                  type: integer
+                  required: false
+                  description: "Numeric category identifier (9-32)."
+                - name: "difficulty"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Difficulty filter: easy, medium, or hard."
+                - name: "type"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Question format: multiple or boolean."
+                - name: "encode"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Response encoding: urlLegacy, url3986, or base64."
+                - name: "token"
+                  in: query
+                  type: string
+                  required: false
+                  description: "Session token to avoid duplicate questions across calls."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "open-trivia-questions-rest"
+      port: 8080
+      description: "REST adapter for Open Trivia Database — Questions. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - name: "questions"
+          path: "/v1/questions"
+          operations:
+            - name: "listQuestions"
+              method: GET
+              description: "List trivia questions matching the supplied filters."
+              maps:
+                consumes: "open-trivia-questions"
+                resource: "questions"
+                operation: "getQuestions"
+
+    - type: mcp
+      namespace: "open-trivia-questions-mcp"
+      description: "MCP adapter for Open Trivia Database — Questions. One verb-noun tool per consumed operation."
+      tools:
+        - name: "list_questions"
+          description: "List trivia questions filtered by category, difficulty, type, and session token."
+          maps:
+            consumes: "open-trivia-questions"
+            resource: "questions"
+            operation: "getQuestions"

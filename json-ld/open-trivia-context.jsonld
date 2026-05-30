@@ -1,0 +1,89 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "otdb": "https://opentdb.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Question": "otdb:Question",
+    "QuestionResponse": "otdb:QuestionResponse",
+    "Category": "otdb:Category",
+    "CategoryListResponse": "otdb:CategoryListResponse",
+    "CategoryQuestionCount": "otdb:CategoryQuestionCount",
+    "CategoryCountResponse": "otdb:CategoryCountResponse",
+    "GlobalCounts": "otdb:GlobalCounts",
+    "GlobalCountResponse": "otdb:GlobalCountResponse",
+    "TokenResponse": "otdb:TokenResponse",
+
+    "id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:integer"
+    },
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "otdb:question_type",
+      "@type": "xsd:string"
+    },
+    "difficulty": {
+      "@id": "otdb:difficulty",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "schema:category",
+      "@type": "xsd:string"
+    },
+    "category_id": {
+      "@id": "otdb:category_id",
+      "@type": "xsd:integer"
+    },
+    "category_question_count": {
+      "@id": "otdb:category_question_count"
+    },
+    "question": {
+      "@id": "schema:text",
+      "@type": "xsd:string"
+    },
+    "correct_answer": {
+      "@id": "otdb:correct_answer",
+      "@type": "xsd:string"
+    },
+    "incorrect_answers": {
+      "@id": "otdb:incorrect_answers",
+      "@type": "xsd:string",
+      "@container": "@list"
+    },
+
+    "trivia_categories": {
+      "@id": "otdb:trivia_categories",
+      "@container": "@list"
+    },
+    "results": {
+      "@id": "otdb:results",
+      "@container": "@list"
+    },
+    "overall": {
+      "@id": "otdb:overall"
+    },
+    "categories": {
+      "@id": "otdb:categories"
+    },
+
+    "total_question_count": {"@id": "otdb:total_question_count", "@type": "xsd:integer"},
+    "total_easy_question_count": {"@id": "otdb:total_easy_question_count", "@type": "xsd:integer"},
+    "total_medium_question_count": {"@id": "otdb:total_medium_question_count", "@type": "xsd:integer"},
+    "total_hard_question_count": {"@id": "otdb:total_hard_question_count", "@type": "xsd:integer"},
+
+    "total_num_of_questions": {"@id": "otdb:total_num_of_questions", "@type": "xsd:integer"},
+    "total_num_of_pending_questions": {"@id": "otdb:total_num_of_pending_questions", "@type": "xsd:integer"},
+    "total_num_of_verified_questions": {"@id": "otdb:total_num_of_verified_questions", "@type": "xsd:integer"},
+    "total_num_of_rejected_questions": {"@id": "otdb:total_num_of_rejected_questions", "@type": "xsd:integer"},
+
+    "response_code": {"@id": "otdb:response_code", "@type": "xsd:integer"},
+    "response_message": {"@id": "otdb:response_message", "@type": "xsd:string"},
+    "token": {"@id": "otdb:session_token", "@type": "xsd:string"}
+  }
+}

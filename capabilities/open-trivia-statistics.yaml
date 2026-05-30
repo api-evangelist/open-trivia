@@ -1,0 +1,68 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Open Trivia Database — Statistics"
+  description: >-
+    Open Trivia Database — Statistics. 1 operation. Lead operation: Open Trivia
+    Get Global Question Count. Self-contained Naftiko capability that exposes
+    aggregate database statistics — overall and per-category totals of
+    questions, pending submissions, verified submissions, and rejections.
+  tags:
+    - Open Trivia
+    - Trivia
+    - Statistics
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+binds: []
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "open-trivia-statistics"
+      baseUri: "https://opentdb.com"
+      description: "Open Trivia Database — Statistics business capability. Self-contained, no shared references."
+      authentication:
+        type: none
+      resources:
+        - name: "global-count"
+          path: "/api_count_global.php"
+          operations:
+            - name: "getGlobalCount"
+              method: GET
+              description: "Return overall question counts and per-category breakdowns."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "open-trivia-statistics-rest"
+      port: 8082
+      description: "REST adapter for Open Trivia Database — Statistics. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - name: "statistics"
+          path: "/v1/statistics"
+          operations:
+            - name: "getStatistics"
+              method: GET
+              description: "Return overall question counts and per-category breakdowns."
+              maps:
+                consumes: "open-trivia-statistics"
+                resource: "global-count"
+                operation: "getGlobalCount"
+
+    - type: mcp
+      namespace: "open-trivia-statistics-mcp"
+      description: "MCP adapter for Open Trivia Database — Statistics."
+      tools:
+        - name: "get_statistics"
+          description: "Return overall question counts and per-category breakdowns."
+          maps:
+            consumes: "open-trivia-statistics"
+            resource: "global-count"
+            operation: "getGlobalCount"

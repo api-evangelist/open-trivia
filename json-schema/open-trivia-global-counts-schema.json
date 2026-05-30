@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-schema/open-trivia-global-counts-schema.json",
+  "title": "GlobalCounts",
+  "description": "Aggregate question counts at either the global or per-category level.",
+  "type": "object",
+  "required": [
+    "total_num_of_questions",
+    "total_num_of_pending_questions",
+    "total_num_of_verified_questions",
+    "total_num_of_rejected_questions"
+  ],
+  "properties": {
+    "total_num_of_questions": {
+      "type": "integer",
+      "description": "Total number of questions in this scope, regardless of moderation state.",
+      "example": 21531
+    },
+    "total_num_of_pending_questions": {
+      "type": "integer",
+      "description": "Questions submitted but not yet reviewed by moderators.",
+      "example": 10828
+    },
+    "total_num_of_verified_questions": {
+      "type": "integer",
+      "description": "Questions reviewed and approved by moderators (served by /api.php).",
+      "example": 5296
+    },
+    "total_num_of_rejected_questions": {
+      "type": "integer",
+      "description": "Questions reviewed and rejected by moderators.",
+      "example": 5424
+    }
+  }
+}

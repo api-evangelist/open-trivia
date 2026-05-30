@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-global-count-response-structure.json",
+  "name": "GlobalCountResponse",
+  "description": "Response returned by /api_count_global.php.",
+  "type": "object",
+  "properties": {
+    "overall": {"$ref": "#/definitions/GlobalCounts"},
+    "categories": {
+      "type": "object",
+      "description": "Per-category breakdown keyed by numeric category identifier as a string.",
+      "additionalProperties": {"$ref": "#/definitions/GlobalCounts"}
+    }
+  },
+  "required": ["overall", "categories"],
+  "definitions": {
+    "GlobalCounts": {
+      "type": "object",
+      "properties": {
+        "total_num_of_questions": {"type": "int32"},
+        "total_num_of_pending_questions": {"type": "int32"},
+        "total_num_of_verified_questions": {"type": "int32"},
+        "total_num_of_rejected_questions": {"type": "int32"}
+      },
+      "required": [
+        "total_num_of_questions",
+        "total_num_of_pending_questions",
+        "total_num_of_verified_questions",
+        "total_num_of_rejected_questions"
+      ]
+    }
+  }
+}

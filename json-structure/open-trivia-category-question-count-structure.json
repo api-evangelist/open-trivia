@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/open-trivia/refs/heads/main/json-structure/open-trivia-category-question-count-structure.json",
+  "name": "CategoryQuestionCount",
+  "description": "Question counts for a single category broken down by difficulty.",
+  "type": "object",
+  "properties": {
+    "total_question_count": {"type": "int32", "description": "Total questions across all difficulty levels."},
+    "total_easy_question_count": {"type": "int32", "description": "Number of easy questions."},
+    "total_medium_question_count": {"type": "int32", "description": "Number of medium questions."},
+    "total_hard_question_count": {"type": "int32", "description": "Number of hard questions."}
+  },
+  "required": [
+    "total_question_count",
+    "total_easy_question_count",
+    "total_medium_question_count",
+    "total_hard_question_count"
+  ]
+}

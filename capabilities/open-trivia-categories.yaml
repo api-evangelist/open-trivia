@@ -1,0 +1,101 @@
+naftiko: "1.0.0-alpha2"
+
+info:
+  label: "Open Trivia Database — Categories"
+  description: >-
+    Open Trivia Database — Categories. 2 operations. Lead operation: Open
+    Trivia List Trivia Categories. Self-contained Naftiko capability covering
+    one OpenTDB business surface — discovering category identifiers and the
+    per-difficulty question count for any single category.
+  tags:
+    - Open Trivia
+    - Trivia
+    - Categories
+  created: "2026-05-30"
+  modified: "2026-05-30"
+
+binds: []
+
+capability:
+
+  consumes:
+    - type: http
+      namespace: "open-trivia-categories"
+      baseUri: "https://opentdb.com"
+      description: "Open Trivia Database — Categories business capability. Self-contained, no shared references."
+      authentication:
+        type: none
+      resources:
+        - name: "categories"
+          path: "/api_category.php"
+          operations:
+            - name: "getCategories"
+              method: GET
+              description: "Return the full list of trivia categories with their numeric identifiers."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: "category-count"
+          path: "/api_count.php"
+          operations:
+            - name: "getCategoryCount"
+              method: GET
+              description: "Return question counts for a single category broken down by difficulty."
+              inputParameters:
+                - name: "category"
+                  in: query
+                  type: integer
+                  required: true
+                  description: "Numeric category identifier (9-32)."
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      namespace: "open-trivia-categories-rest"
+      port: 8081
+      description: "REST adapter for Open Trivia Database — Categories. One Spectral-compliant resource per consumed operation, prefixed with /v1."
+      resources:
+        - name: "categories"
+          path: "/v1/categories"
+          operations:
+            - name: "listCategories"
+              method: GET
+              description: "List all trivia categories."
+              maps:
+                consumes: "open-trivia-categories"
+                resource: "categories"
+                operation: "getCategories"
+        - name: "category-counts"
+          path: "/v1/categories/{category_id}/counts"
+          operations:
+            - name: "getCategoryCounts"
+              method: GET
+              description: "Return per-difficulty question counts for a single category."
+              maps:
+                consumes: "open-trivia-categories"
+                resource: "category-count"
+                operation: "getCategoryCount"
+
+    - type: mcp
+      namespace: "open-trivia-categories-mcp"
+      description: "MCP adapter for Open Trivia Database — Categories."
+      tools:
+        - name: "list_categories"
+          description: "List all trivia categories with their numeric identifiers."
+          maps:
+            consumes: "open-trivia-categories"
+            resource: "categories"
+            operation: "getCategories"
+        - name: "get_category_counts"
+          description: "Return per-difficulty question counts for a single category."
+          maps:
+            consumes: "open-trivia-categories"
+            resource: "category-count"
+            operation: "getCategoryCount"
