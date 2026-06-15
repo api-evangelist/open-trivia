@@ -1,14 +1,11 @@
 aid: open-trivia
 name: Open Trivia Database
 description: >-
-  The Open Trivia Database (OpenTDB) is a free, user-contributed trivia question
-  database operated by Pixeltail Games LLC. It offers a JSON REST API for
-  retrieving thousands of community-verified trivia questions across 24
-  categories and three difficulty levels, with optional session tokens to prevent
-  duplicate questions. The service is licensed Creative Commons
-  Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point
-  of use, and enforces a single throttling rule: one request per IP every five
-  seconds.
+  The Open Trivia Database (OpenTDB) is a free, user-contributed trivia question database operated by Pixeltail Games
+  LLC. It offers a JSON REST API for retrieving thousands of community-verified trivia questions across 24 categories
+  and three difficulty levels, with optional session tokens to prevent duplicate questions. The service is licensed
+  Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point of use, and enforces a
+  single throttling rule: one request per IP every five seconds.
 url: https://opentdb.com/api_config.php
 image: https://opentdb.com/images/logo-banner.png
 humanURL: https://opentdb.com
@@ -27,7 +24,7 @@ x-artifacts:
   rules: 1
   vocabulary: 1
   rateLimits: 1
-x-category: "Games & Comics"
+x-category: Games & Comics
 x-type: opensource
 x-tier: 3
 x-tier-reason: Free public service; user-contributed open database with CC BY-SA 4.0 licensing.
@@ -43,12 +40,10 @@ tags:
 apis:
   - name: Open Trivia Database API
     description: >-
-      JSON REST API that returns multiple-choice and true/false trivia questions
-      drawn from a community-curated database of over 5,000 verified questions
-      across 24 categories. Supports filtering by category, difficulty, and
-      question type, optional response encoding (HTML entities, URL legacy,
-      RFC 3986, Base64), and session tokens to prevent duplicate questions
-      within a six-hour window.
+      JSON REST API that returns multiple-choice and true/false trivia questions drawn from a community-curated database
+      of over 5,000 verified questions across 24 categories. Supports filtering by category, difficulty, and question
+      type, optional response encoding (HTML entities, URL legacy, RFC 3986, Base64), and session tokens to prevent
+      duplicate questions within a six-hour window.
     image: https://opentdb.com/images/logo-banner.png
     humanURL: https://opentdb.com/api_config.php
     baseURL: https://opentdb.com
@@ -70,18 +65,6 @@ apis:
         url: json-structure/open-trivia-question-structure.json
       - type: JSONLD
         url: json-ld/open-trivia-context.jsonld
-      - type: NaftikoCapability
-        title: Questions Capability
-        url: capabilities/open-trivia-questions.yaml
-      - type: NaftikoCapability
-        title: Categories Capability
-        url: capabilities/open-trivia-categories.yaml
-      - type: NaftikoCapability
-        title: Statistics Capability
-        url: capabilities/open-trivia-statistics.yaml
-      - type: NaftikoCapability
-        title: Tokens Capability
-        url: capabilities/open-trivia-tokens.yaml
       - type: SpectralRules
         url: rules/open-trivia-rules.yml
       - type: RateLimits

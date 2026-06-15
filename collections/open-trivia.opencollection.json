@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Trivia Database API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Questions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia Get Trivia Questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api.php",
+            "params": [
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Number of questions to return. Must be between 1 and 50 inclusive."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32). Omit to draw from any category."
+              },
+              {
+                "name": "difficulty",
+                "value": "",
+                "type": "query",
+                "description": "Restrict questions to a single difficulty level."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Restrict questions to a single answer format. `multiple` returns four-option multiple-choice questions; `boolean` returns true/false questions."
+              },
+              {
+                "name": "encode",
+                "value": "",
+                "type": "query",
+                "description": "Response encoding for textual fields. Defaults to HTML-entity encoded plain text. `urlLegacy` applies legacy URL encoding, `url3986` applies RFC 3986 percent encoding, and `base64` applies Base64 encoding."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Session token returned by /api_token.php. When provided, the API tracks which questions have been served and avoids returning duplicates until the token is reset or expires."
+              }
+            ]
+          },
+          "docs": "Retrieve a batch of trivia questions from the Open Trivia Database. Questions can be filtered by category, difficulty, and type. A session token may be supplied to prevent the same question from being returned twice within a six-hour window."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia List Trivia Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_category.php"
+          },
+          "docs": "Return the full list of trivia categories supported by the Open Trivia Database, each with its numeric identifier and human-readable name."
+        },
+        {
+          "info": {
+            "name": "Open Trivia Get Category Question Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_count.php",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32)."
+              }
+            ]
+          },
+          "docs": "Return the number of questions available in a single category broken down by difficulty level (easy, medium, hard) plus the overall total."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia Get Global Question Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_count_global.php"
+          },
+          "docs": "Return overall question counts for the Open Trivia Database — total questions, pending submissions, verified questions, and rejected submissions — both globally and per category."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia Manage Session Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_token.php",
+            "params": [
+              {
+                "name": "command",
+                "value": "",
+                "type": "query",
+                "description": "The token operation to perform."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Existing session token. Required when `command=reset`; ignored when `command=request`."
+              }
+            ]
+          },
+          "docs": "Request a new session token or reset an existing one. Session tokens prevent duplicate questions across calls and expire after six hours of inactivity. Use `command=request` to obtain a new token and `command=reset` with the token parameter to recycle an existing token's served-question set."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -2,91 +2,80 @@
 
 The Open Trivia Database (OpenTDB) is a free, user-contributed trivia question database operated by Pixeltail Games LLC. It offers a JSON REST API for retrieving thousands of community-verified trivia questions across 24 categories and three difficulty levels, with optional session tokens to prevent duplicate questions. The service is licensed Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point of use, and enforces a single throttling rule: one request per IP every five seconds.
 
-**URL:** [Visit APIs.json URL](https://opentdb.com/api_config.php)
-
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=opensource-api-evangelist&utm_content=repo)
+**APIs.json:** [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
 
 ## Tags
-Trivia, Games And Comics, Quiz, Open Data, Public APIs, Open Source
 
-## Type
-- **x-type:** opensource
-- **x-tier:** 3
-- **x-license:** CC-BY-SA-4.0
-- **x-operator:** Pixeltail Games LLC
-- **source:** [public-apis/public-apis](https://github.com/public-apis/public-apis) — category: Games & Comics
+- Trivia
+- Games And Comics
+- Quiz
+- Open Data
+- Public APIs
+- Open Source
+
+## Timestamps
+
+- **Created:** 2026-05-28
+- **Modified:** 2026-05-30
 
 ## APIs
 
 ### Open Trivia Database API
-JSON REST API that returns multiple-choice and true/false trivia questions drawn from a community-curated database of over 5,000 verified questions across 24 categories.
+
+JSON REST API that returns multiple-choice and true/false trivia questions drawn from a community-curated database of over 5,000 verified questions across 24 categories. Supports filtering by category, difficulty, and question type, optional response encoding (HTML entities, URL legacy, RFC 3986, Base64), and session tokens to prevent duplicate questions within a six-hour window.
+
+- **Human URL:** [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
+- **Base URL:** `https://opentdb.com`
+
+#### Tags
+
+- Trivia
+- Quiz
+- Questions
+- Games And Comics
+
+#### Properties
 
 - [Documentation](https://opentdb.com/api_config.php)
+- [OpenAPI](openapi/open-trivia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/open-trivia.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/open-trivia.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/open-trivia-question-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/open-trivia-category-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](json-structure/open-trivia-question-structure.json)
+- [JSON-LD](json-ld/open-trivia-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Spectral Rules](rules/open-trivia-rules.yml)
+- [Rate Limits](rate-limits/open-trivia-rate-limits.yml)
+- [Vocabulary](vocabulary/open-trivia-vocabulary.yml)
+- [Examples](examples/open-trivia-question-response-example.json)
+- [Sign Up](https://opentdb.com/api_config.php)
 - [Contribute Questions](https://opentdb.com/contribute.php)
 - [Browse Questions](https://opentdb.com/browse.php)
-- [Play Online](https://opentdb.com/game.php)
-- [Global Statistics](https://opentdb.com/api_count_global.php)
+- [Game Link](https://opentdb.com/game.php)
+- [Statistics](https://opentdb.com/api_count_global.php)
 
-## OpenAPI
-- [openapi/open-trivia-openapi.yml](openapi/open-trivia-openapi.yml) — 5 paths, 10 component schemas, 4 tags
+## Common Properties
 
-## Naftiko Capabilities
-- [capabilities/open-trivia-questions.yaml](capabilities/open-trivia-questions.yaml) — Questions (1 operation)
-- [capabilities/open-trivia-categories.yaml](capabilities/open-trivia-categories.yaml) — Categories (2 operations)
-- [capabilities/open-trivia-statistics.yaml](capabilities/open-trivia-statistics.yaml) — Statistics (1 operation)
-- [capabilities/open-trivia-tokens.yaml](capabilities/open-trivia-tokens.yaml) — Tokens (1 operation)
-
-## JSON Schema
-- [open-trivia-question-schema.json](json-schema/open-trivia-question-schema.json)
-- [open-trivia-question-response-schema.json](json-schema/open-trivia-question-response-schema.json)
-- [open-trivia-category-schema.json](json-schema/open-trivia-category-schema.json)
-- [open-trivia-category-list-response-schema.json](json-schema/open-trivia-category-list-response-schema.json)
-- [open-trivia-category-question-count-schema.json](json-schema/open-trivia-category-question-count-schema.json)
-- [open-trivia-category-count-response-schema.json](json-schema/open-trivia-category-count-response-schema.json)
-- [open-trivia-global-counts-schema.json](json-schema/open-trivia-global-counts-schema.json)
-- [open-trivia-global-count-response-schema.json](json-schema/open-trivia-global-count-response-schema.json)
-- [open-trivia-token-response-schema.json](json-schema/open-trivia-token-response-schema.json)
-
-## JSON Structure
-9 JSON Structure files mirroring the JSON Schemas under [json-structure/](json-structure/).
-
-## JSON-LD
-- [open-trivia-context.jsonld](json-ld/open-trivia-context.jsonld) — vocabulary mapped to schema.org and the `otdb:` namespace
-
-## Examples
-9 schema-aligned example payloads under [examples/](examples/).
-
-## Spectral Rules
-- [rules/open-trivia-rules.yml](rules/open-trivia-rules.yml) — 36 rules covering metadata, paths, operations, parameters, responses, schemas, and security
-
-## Rate Limits
-- [rate-limits/open-trivia-rate-limits.yml](rate-limits/open-trivia-rate-limits.yml) — 1 limit (per-IP, one request every 5 seconds) and 5 policies
-
-## Vocabulary
-- [vocabulary/open-trivia-vocabulary.yml](vocabulary/open-trivia-vocabulary.yml) — 5 resources, 4 actions, 4 workflows, 6 personas
-
-## Community SDKs and Tools
-- [Open Trivia DB Wrapper (TypeScript)](https://github.com/Elitezen/open-trivia-db-wrapper)
-- [Python Trivia API](https://github.com/MaT1g3R/Python-Trivia-API)
-- [OpenTDB4j (Java)](https://github.com/crnvl/OpenTDB4j)
-- [opentdb-api (JavaScript)](https://github.com/blobfysh/opentdb-api)
-- [MCP Server (pipeworx-io/mcp-trivia)](https://github.com/pipeworx-io/mcp-trivia)
-- [Discord Trivia Bot](https://github.com/LakeYS/Discord-Trivia-Bot)
-- [OTDB Source Download Script](https://github.com/QuartzWarrior/OTDB-Source)
-
-## License
-Questions are licensed under [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/). See the [Open Trivia Database terms of service](https://opentdb.com/terms.php).
-
-## Support
-- [Contact](https://opentdb.com/contact.php)
-- [Donate (Ko-fi)](https://ko-fi.com/pixeltailgames)
-
-## APIs.yml
-[apis.yml](apis.yml)
-
-## Timestamps
-- **Created:** 2026-05-28
-- **Modified:** 2026-05-30
+- [Website](https://opentdb.com)
+- [Documentation](https://opentdb.com/api_config.php)
+- [Support](https://opentdb.com/contact.php)
+- [Terms of Service](https://opentdb.com/terms.php)
+- [License](https://creativecommons.org/licenses/by-sa/4.0/)
+- [Donate](https://ko-fi.com/pixeltailgames)
+- [Public APIs Listing](https://github.com/public-apis/public-apis)
+- [Community Integrations](https://github.com/topics/opentdb)
+- [SDK](https://github.com/Elitezen/open-trivia-db-wrapper)
+- [SDK](https://github.com/MaT1g3R/Python-Trivia-API)
+- [SDK](https://github.com/crnvl/OpenTDB4j)
+- [SDK](https://github.com/blobfysh/opentdb-api)
+- [Tools](https://github.com/pipeworx-io/mcp-trivia)
+- [Tools](https://github.com/LakeYS/Discord-Trivia-Bot)
+- [Tools](https://github.com/QuartzWarrior/OTDB-Source)
+- [Code Examples](https://github.com/robinheinze/ignite-trivia)
+- [Code Examples](https://github.com/computationalcore/react-native-trivia-quiz)
+- [Code Examples](https://github.com/supershaneski/vue-quiz-app)
 
 ## Maintainers
-- **Kin Lane** — kin@apievangelist.com
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
