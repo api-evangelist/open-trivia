@@ -73,7 +73,7 @@ apis:
         url: vocabulary/open-trivia-vocabulary.yml
       - type: Examples
         url: examples/open-trivia-question-response-example.json
-      - type: SignUp
+      - type: Signup
         url: https://opentdb.com/api_config.php
       - type: ContributeQuestions
         url: https://opentdb.com/contribute.php
@@ -101,16 +101,16 @@ common:
   - type: CommunityIntegrations
     title: Community SDKs and Integrations
     url: https://github.com/topics/opentdb
-  - type: SDK
+  - type: SDKs
     title: Open Trivia DB Wrapper (TypeScript / JavaScript)
     url: https://github.com/Elitezen/open-trivia-db-wrapper
-  - type: SDK
+  - type: SDKs
     title: Python Trivia API (Python)
     url: https://github.com/MaT1g3R/Python-Trivia-API
-  - type: SDK
+  - type: SDKs
     title: OpenTDB4j (Java)
     url: https://github.com/crnvl/OpenTDB4j
-  - type: SDK
+  - type: SDKs
     title: opentdb-api (JavaScript)
     url: https://github.com/blobfysh/opentdb-api
   - type: Tools
