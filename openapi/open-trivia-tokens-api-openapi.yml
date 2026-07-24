@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Open Trivia Database Categories Tokens API
+  version: '1.0'
+  description: 'The Open Trivia Database (OpenTDB) is a free, user-contributed trivia
+
+    question database operated by Pixeltail Games LLC. This OpenAPI specification
+
+    describes the public JSON REST API exposed at https://opentdb.com.
+
+
+    The API supports five endpoints:
+
+    - /api.php — retrieve a batch of trivia questions
+
+    - /api_category.php — list all categories and their IDs
+
+    - /api_count.php — get question counts per category broken down by difficulty
+
+    - /api_count_global.php — return global database statistics
+
+    - /api_token.php — request, reset, or recycle a session token
+
+
+    All endpoints return JSON. The API enforces a documented rate limit of one
+
+    request per IP every five seconds (HTTP 429). Questions are licensed under
+
+    Creative Commons Attribution-ShareAlike 4.0 International.
+
+    '
+  contact:
+    name: Open Trivia Database (Pixeltail Games)
+    url: https://opentdb.com/contact.php
+  license:
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+  termsOfService: https://opentdb.com/terms.php
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://opentdb.com
+  description: Open Trivia Database production endpoint
+security: []
+tags:
+- name: Tokens
+  description: Operations for managing session tokens that prevent duplicate questions.
+paths:
+  /api_token.php:
+    get:
+      operationId: manageToken
+      summary: Open Trivia Manage Session Token
+      description: Request a new session token or reset an existing one. Session tokens prevent duplicate questions across calls and expire after six hours of inactivity. Use `command=request` to obtain a new token and `command=reset` with the token parameter to recycle an existing token's served-question set.
+      tags:
+      - Tokens
+      parameters:
+      - name: command
+        in: query
+        required: true
+        description: The token operation to perform.
+        schema:
+          type: string
+          enum:
+          - request
+          - reset
+          example: request
+      - name: token
+        in: query
+        required: false
+        description: Existing session token. Required when `command=reset`; ignored when `command=request`.
+        schema:
+          type: string
+          example: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
+      responses:
+        '200':
+          description: The token response envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+              examples:
+                tokenIssued:
+                  summary: New token issued
+                  value:
+                    response_code: 0
+                    response_message: Token Generated Successfully!
+                    token: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
+                tokenReset:
+                  summary: Existing token recycled
+                  value:
+                    response_code: 0
+                    response_message: Token Reset Success!
+                    token: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
+                tokenNotFound:
+                  summary: Token does not exist or has expired
+                  value:
+                    response_code: 3
+                    response_message: Token Not Found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      x-microcks-default: tokenIssued
+components:
+  schemas:
+    ResponseEnvelope:
+      type: object
+      description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.
+      required:
+      - response_code
+      properties:
+        response_code:
+          type: integer
+          description: 'Outcome code: 0 success, 1 no results (not enough questions), 2 invalid parameter, 3 token not found, 4 token empty (all questions served), 5 rate limit exceeded.'
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          example: 0
+        response_message:
+          type: string
+          description: Human-readable description of the response code (returned for token endpoints).
+          example: Token Generated Successfully!
+    TokenResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResponseEnvelope'
+      - type: object
+        description: Response returned by /api_token.php.
+        properties:
+          token:
+            type: string
+            description: The session token. Present on `command=request` and on a successful `command=reset` call.
+            example: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25

@@ -1,0 +1,127 @@
+openapi: 3.0.3
+info:
+  title: Open Trivia Database Categories Statistics API
+  version: '1.0'
+  description: 'The Open Trivia Database (OpenTDB) is a free, user-contributed trivia
+
+    question database operated by Pixeltail Games LLC. This OpenAPI specification
+
+    describes the public JSON REST API exposed at https://opentdb.com.
+
+
+    The API supports five endpoints:
+
+    - /api.php — retrieve a batch of trivia questions
+
+    - /api_category.php — list all categories and their IDs
+
+    - /api_count.php — get question counts per category broken down by difficulty
+
+    - /api_count_global.php — return global database statistics
+
+    - /api_token.php — request, reset, or recycle a session token
+
+
+    All endpoints return JSON. The API enforces a documented rate limit of one
+
+    request per IP every five seconds (HTTP 429). Questions are licensed under
+
+    Creative Commons Attribution-ShareAlike 4.0 International.
+
+    '
+  contact:
+    name: Open Trivia Database (Pixeltail Games)
+    url: https://opentdb.com/contact.php
+  license:
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+  termsOfService: https://opentdb.com/terms.php
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://opentdb.com
+  description: Open Trivia Database production endpoint
+security: []
+tags:
+- name: Statistics
+  description: Operations for inspecting overall database statistics.
+paths:
+  /api_count_global.php:
+    get:
+      operationId: getGlobalCount
+      summary: Open Trivia Get Global Question Count
+      description: Return overall question counts for the Open Trivia Database — total questions, pending submissions, verified questions, and rejected submissions — both globally and per category.
+      tags:
+      - Statistics
+      responses:
+        '200':
+          description: Global database statistics broken down per category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalCountResponse'
+              examples:
+                globalStats:
+                  summary: Global statistics snapshot
+                  value:
+                    overall:
+                      total_num_of_questions: 21531
+                      total_num_of_pending_questions: 10828
+                      total_num_of_verified_questions: 5296
+                      total_num_of_rejected_questions: 5424
+                    categories:
+                      '9':
+                        total_num_of_questions: 469
+                        total_num_of_pending_questions: 200
+                        total_num_of_verified_questions: 215
+                        total_num_of_rejected_questions: 54
+                      '17':
+                        total_num_of_questions: 230
+                        total_num_of_pending_questions: 110
+                        total_num_of_verified_questions: 95
+                        total_num_of_rejected_questions: 25
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      x-microcks-default: globalStats
+components:
+  schemas:
+    GlobalCountResponse:
+      type: object
+      description: Response returned by /api_count_global.php.
+      required:
+      - overall
+      - categories
+      properties:
+        overall:
+          $ref: '#/components/schemas/GlobalCounts'
+        categories:
+          type: object
+          description: Per-category breakdown keyed by numeric category identifier as a string. Each value uses the same shape as the `overall` block.
+          additionalProperties:
+            $ref: '#/components/schemas/GlobalCounts'
+    GlobalCounts:
+      type: object
+      description: Aggregate question counts at either the global or per-category level.
+      required:
+      - total_num_of_questions
+      - total_num_of_pending_questions
+      - total_num_of_verified_questions
+      - total_num_of_rejected_questions
+      properties:
+        total_num_of_questions:
+          type: integer
+          description: Total number of questions in this scope, regardless of moderation state.
+          example: 21531
+        total_num_of_pending_questions:
+          type: integer
+          description: Questions submitted but not yet reviewed by moderators.
+          example: 10828
+        total_num_of_verified_questions:
+          type: integer
+          description: Questions reviewed and approved by moderators (served by /api.php).
+          example: 5296
+        total_num_of_rejected_questions:
+          type: integer
+          description: Questions reviewed and rejected by moderators.
+          example: 5424

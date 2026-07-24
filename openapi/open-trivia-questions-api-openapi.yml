@@ -1,0 +1,247 @@
+openapi: 3.0.3
+info:
+  title: Open Trivia Database Categories Questions API
+  version: '1.0'
+  description: 'The Open Trivia Database (OpenTDB) is a free, user-contributed trivia
+
+    question database operated by Pixeltail Games LLC. This OpenAPI specification
+
+    describes the public JSON REST API exposed at https://opentdb.com.
+
+
+    The API supports five endpoints:
+
+    - /api.php — retrieve a batch of trivia questions
+
+    - /api_category.php — list all categories and their IDs
+
+    - /api_count.php — get question counts per category broken down by difficulty
+
+    - /api_count_global.php — return global database statistics
+
+    - /api_token.php — request, reset, or recycle a session token
+
+
+    All endpoints return JSON. The API enforces a documented rate limit of one
+
+    request per IP every five seconds (HTTP 429). Questions are licensed under
+
+    Creative Commons Attribution-ShareAlike 4.0 International.
+
+    '
+  contact:
+    name: Open Trivia Database (Pixeltail Games)
+    url: https://opentdb.com/contact.php
+  license:
+    name: CC BY-SA 4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+  termsOfService: https://opentdb.com/terms.php
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://opentdb.com
+  description: Open Trivia Database production endpoint
+security: []
+tags:
+- name: Questions
+  description: Operations for retrieving trivia questions from the database.
+paths:
+  /api.php:
+    get:
+      operationId: getQuestions
+      summary: Open Trivia Get Trivia Questions
+      description: Retrieve a batch of trivia questions from the Open Trivia Database. Questions can be filtered by category, difficulty, and type. A session token may be supplied to prevent the same question from being returned twice within a six-hour window.
+      tags:
+      - Questions
+      parameters:
+      - name: amount
+        in: query
+        required: true
+        description: Number of questions to return. Must be between 1 and 50 inclusive.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 10
+          example: 10
+      - name: category
+        in: query
+        required: false
+        description: Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32). Omit to draw from any category.
+        schema:
+          type: integer
+          minimum: 9
+          maximum: 32
+          example: 9
+      - name: difficulty
+        in: query
+        required: false
+        description: Restrict questions to a single difficulty level.
+        schema:
+          type: string
+          enum:
+          - easy
+          - medium
+          - hard
+          example: medium
+      - name: type
+        in: query
+        required: false
+        description: Restrict questions to a single answer format. `multiple` returns four-option multiple-choice questions; `boolean` returns true/false questions.
+        schema:
+          type: string
+          enum:
+          - multiple
+          - boolean
+          example: multiple
+      - name: encode
+        in: query
+        required: false
+        description: Response encoding for textual fields. Defaults to HTML-entity encoded plain text. `urlLegacy` applies legacy URL encoding, `url3986` applies RFC 3986 percent encoding, and `base64` applies Base64 encoding.
+        schema:
+          type: string
+          enum:
+          - urlLegacy
+          - url3986
+          - base64
+          example: base64
+      - name: token
+        in: query
+        required: false
+        description: Session token returned by /api_token.php. When provided, the API tracks which questions have been served and avoids returning duplicates until the token is reset or expires.
+        schema:
+          type: string
+          example: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
+      responses:
+        '200':
+          description: A trivia question response envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionResponse'
+              examples:
+                multipleChoiceBatch:
+                  summary: Two multiple-choice questions
+                  value:
+                    response_code: 0
+                    results:
+                    - type: multiple
+                      difficulty: medium
+                      category: Science &amp; Nature
+                      question: What is the chemical symbol for gold?
+                      correct_answer: Au
+                      incorrect_answers:
+                      - Ag
+                      - Go
+                      - Gd
+                    - type: boolean
+                      difficulty: easy
+                      category: General Knowledge
+                      question: The Pacific Ocean is the largest ocean on Earth.
+                      correct_answer: 'True'
+                      incorrect_answers:
+                      - 'False'
+                noResults:
+                  summary: Not enough questions in the category to satisfy the request
+                  value:
+                    response_code: 1
+                    results: []
+        '429':
+          description: Rate limit exceeded (one request per IP every five seconds).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseEnvelope'
+              examples:
+                rateLimited:
+                  summary: Rate limit response
+                  value:
+                    response_code: 5
+                    response_message: Rate Limit Exceeded
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+      x-microcks-default: multipleChoiceBatch
+components:
+  schemas:
+    Question:
+      type: object
+      description: A single trivia question with its category, difficulty, and answers.
+      required:
+      - type
+      - difficulty
+      - category
+      - question
+      - correct_answer
+      - incorrect_answers
+      properties:
+        type:
+          type: string
+          description: Question format — multiple-choice or true/false.
+          enum:
+          - multiple
+          - boolean
+          example: multiple
+        difficulty:
+          type: string
+          description: Difficulty level assigned to the question.
+          enum:
+          - easy
+          - medium
+          - hard
+          example: medium
+        category:
+          type: string
+          description: Human-readable category name (HTML-entity encoded by default).
+          example: Science &amp; Nature
+        question:
+          type: string
+          description: The trivia question prompt, encoded per the `encode` parameter.
+          example: What is the chemical symbol for gold?
+        correct_answer:
+          type: string
+          description: The correct answer to the question.
+          example: Au
+        incorrect_answers:
+          type: array
+          description: One incorrect answer for boolean questions, or three for multiple-choice.
+          items:
+            type: string
+          example:
+          - Ag
+          - Go
+          - Gd
+    QuestionResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResponseEnvelope'
+      - type: object
+        description: Response envelope returned by /api.php containing the question batch.
+        required:
+        - results
+        properties:
+          results:
+            type: array
+            description: Array of trivia questions matching the request parameters.
+            items:
+              $ref: '#/components/schemas/Question'
+    ResponseEnvelope:
+      type: object
+      description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.
+      required:
+      - response_code
+      properties:
+        response_code:
+          type: integer
+          description: 'Outcome code: 0 success, 1 no results (not enough questions), 2 invalid parameter, 3 token not found, 4 token empty (all questions served), 5 rate limit exceeded.'
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          example: 0
+        response_message:
+          type: string
+          description: Human-readable description of the response code (returned for token endpoints).
+          example: Token Generated Successfully!
