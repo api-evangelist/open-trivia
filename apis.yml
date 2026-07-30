@@ -7,6 +7,17 @@ description: >-
   Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point of use, and enforces a
   single throttling rule: one request per IP every five seconds.
 url: https://opentdb.com/api_config.php
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 image: https://opentdb.com/images/logo-banner.png
 humanURL: https://opentdb.com
 baseURL: https://opentdb.com
@@ -38,51 +49,158 @@ tags:
   - Public APIs
   - Open Source
 apis:
-  - name: Open Trivia Database API
-    description: >-
-      JSON REST API that returns multiple-choice and true/false trivia questions drawn from a community-curated database
-      of over 5,000 verified questions across 24 categories. Supports filtering by category, difficulty, and question
-      type, optional response encoding (HTML entities, URL legacy, RFC 3986, Base64), and session tokens to prevent
-      duplicate questions within a six-hour window.
-    image: https://opentdb.com/images/logo-banner.png
-    humanURL: https://opentdb.com/api_config.php
-    baseURL: https://opentdb.com
-    tags:
-      - Trivia
-      - Quiz
-      - Questions
-      - Games And Comics
-    properties:
-      - type: Documentation
-        url: https://opentdb.com/api_config.php
-      - type: OpenAPI
-        url: openapi/open-trivia-openapi.yml
-      - type: JSONSchema
-        url: json-schema/open-trivia-question-schema.json
-      - type: JSONSchema
-        url: json-schema/open-trivia-category-schema.json
-      - type: JSONStructure
-        url: json-structure/open-trivia-question-structure.json
-      - type: JSONLD
-        url: json-ld/open-trivia-context.jsonld
-      - type: SpectralRules
-        url: rules/open-trivia-rules.yml
-      - type: RateLimits
-        url: rate-limits/open-trivia-rate-limits.yml
-      - type: Vocabulary
-        url: vocabulary/open-trivia-vocabulary.yml
-      - type: Examples
-        url: examples/open-trivia-question-response-example.json
-      - type: Signup
-        url: https://opentdb.com/api_config.php
-      - type: ContributeQuestions
-        url: https://opentdb.com/contribute.php
-      - type: BrowseQuestions
-        url: https://opentdb.com/browse.php
-      - type: GameLink
-        url: https://opentdb.com/game.php
-      - type: Statistics
-        url: https://opentdb.com/api_count_global.php
+- aid: open-trivia:open-trivia-categories-api
+  name: Open Trivia Database Categories API
+  description: Operations for discovering trivia category metadata and counts.
+  humanURL: https://opentdb.com/api_config.php
+  baseURL: https://opentdb.com
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/open-trivia-categories-api-openapi.yml
+  - type: Documentation
+    url: https://opentdb.com/api_config.php
+  - type: JSONSchema
+    url: json-schema/open-trivia-question-schema.json
+  - type: JSONSchema
+    url: json-schema/open-trivia-category-schema.json
+  - type: JSONStructure
+    url: json-structure/open-trivia-question-structure.json
+  - type: JSONLD
+    url: json-ld/open-trivia-context.jsonld
+  - type: SpectralRules
+    url: rules/open-trivia-rules.yml
+  - type: RateLimits
+    url: rate-limits/open-trivia-rate-limits.yml
+  - type: Vocabulary
+    url: vocabulary/open-trivia-vocabulary.yml
+  - type: Examples
+    url: examples/open-trivia-question-response-example.json
+  - type: Signup
+    url: https://opentdb.com/api_config.php
+  - type: ContributeQuestions
+    url: https://opentdb.com/contribute.php
+  - type: BrowseQuestions
+    url: https://opentdb.com/browse.php
+  - type: GameLink
+    url: https://opentdb.com/game.php
+  - type: Statistics
+    url: https://opentdb.com/api_count_global.php
+- aid: open-trivia:open-trivia-questions-api
+  name: Open Trivia Database Questions API
+  description: Operations for retrieving trivia questions from the database.
+  humanURL: https://opentdb.com/api_config.php
+  baseURL: https://opentdb.com
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/open-trivia-questions-api-openapi.yml
+  - type: Documentation
+    url: https://opentdb.com/api_config.php
+  - type: JSONSchema
+    url: json-schema/open-trivia-question-schema.json
+  - type: JSONSchema
+    url: json-schema/open-trivia-category-schema.json
+  - type: JSONStructure
+    url: json-structure/open-trivia-question-structure.json
+  - type: JSONLD
+    url: json-ld/open-trivia-context.jsonld
+  - type: SpectralRules
+    url: rules/open-trivia-rules.yml
+  - type: RateLimits
+    url: rate-limits/open-trivia-rate-limits.yml
+  - type: Vocabulary
+    url: vocabulary/open-trivia-vocabulary.yml
+  - type: Examples
+    url: examples/open-trivia-question-response-example.json
+  - type: Signup
+    url: https://opentdb.com/api_config.php
+  - type: ContributeQuestions
+    url: https://opentdb.com/contribute.php
+  - type: BrowseQuestions
+    url: https://opentdb.com/browse.php
+  - type: GameLink
+    url: https://opentdb.com/game.php
+  - type: Statistics
+    url: https://opentdb.com/api_count_global.php
+- aid: open-trivia:open-trivia-statistics-api
+  name: Open Trivia Database Statistics API
+  description: Operations for inspecting overall database statistics.
+  humanURL: https://opentdb.com/api_config.php
+  baseURL: https://opentdb.com
+  tags:
+  - Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/open-trivia-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://opentdb.com/api_config.php
+  - type: JSONSchema
+    url: json-schema/open-trivia-question-schema.json
+  - type: JSONSchema
+    url: json-schema/open-trivia-category-schema.json
+  - type: JSONStructure
+    url: json-structure/open-trivia-question-structure.json
+  - type: JSONLD
+    url: json-ld/open-trivia-context.jsonld
+  - type: SpectralRules
+    url: rules/open-trivia-rules.yml
+  - type: RateLimits
+    url: rate-limits/open-trivia-rate-limits.yml
+  - type: Vocabulary
+    url: vocabulary/open-trivia-vocabulary.yml
+  - type: Examples
+    url: examples/open-trivia-question-response-example.json
+  - type: Signup
+    url: https://opentdb.com/api_config.php
+  - type: ContributeQuestions
+    url: https://opentdb.com/contribute.php
+  - type: BrowseQuestions
+    url: https://opentdb.com/browse.php
+  - type: GameLink
+    url: https://opentdb.com/game.php
+  - type: Statistics
+    url: https://opentdb.com/api_count_global.php
+- aid: open-trivia:open-trivia-tokens-api
+  name: Open Trivia Database Tokens API
+  description: Operations for managing session tokens that prevent duplicate questions.
+  humanURL: https://opentdb.com/api_config.php
+  baseURL: https://opentdb.com
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/open-trivia-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://opentdb.com/api_config.php
+  - type: JSONSchema
+    url: json-schema/open-trivia-question-schema.json
+  - type: JSONSchema
+    url: json-schema/open-trivia-category-schema.json
+  - type: JSONStructure
+    url: json-structure/open-trivia-question-structure.json
+  - type: JSONLD
+    url: json-ld/open-trivia-context.jsonld
+  - type: SpectralRules
+    url: rules/open-trivia-rules.yml
+  - type: RateLimits
+    url: rate-limits/open-trivia-rate-limits.yml
+  - type: Vocabulary
+    url: vocabulary/open-trivia-vocabulary.yml
+  - type: Examples
+    url: examples/open-trivia-question-response-example.json
+  - type: Signup
+    url: https://opentdb.com/api_config.php
+  - type: ContributeQuestions
+    url: https://opentdb.com/contribute.php
+  - type: BrowseQuestions
+    url: https://opentdb.com/browse.php
+  - type: GameLink
+    url: https://opentdb.com/game.php
+  - type: Statistics
+    url: https://opentdb.com/api_count_global.php
 common:
   - type: AgenticAccess
     url: agentic-access/open-trivia-agentic-access.yml
