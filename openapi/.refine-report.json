@@ -1,0 +1,20 @@
+{
+  "provider": "open-trivia",
+  "sources": [
+    "open-trivia-categories-api-openapi.yml",
+    "open-trivia-questions-api-openapi.yml",
+    "open-trivia-statistics-api-openapi.yml",
+    "open-trivia-tokens-api-openapi.yml"
+  ],
+  "outputs": [
+    "open-trivia-categories-api-openapi.yml",
+    "open-trivia-questions-api-openapi.yml",
+    "open-trivia-statistics-api-openapi.yml",
+    "open-trivia-tokens-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
