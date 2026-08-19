@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Trivia Database Categories Statistics API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia Get Global Question Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_count_global.php"
+          },
+          "docs": "Return overall question counts for the Open Trivia Database — total questions, pending submissions, verified questions, and rejected submissions — both globally and per category."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

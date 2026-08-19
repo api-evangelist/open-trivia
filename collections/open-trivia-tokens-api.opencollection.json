@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Trivia Database Categories Tokens API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia Manage Session Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_token.php",
+            "params": [
+              {
+                "name": "command",
+                "value": "",
+                "type": "query",
+                "description": "The token operation to perform."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Existing session token. Required when `command=reset`; ignored when `command=request`."
+              }
+            ]
+          },
+          "docs": "Request a new session token or reset an existing one. Session tokens prevent duplicate questions across calls and expire after six hours of inactivity. Use `command=request` to obtain a new token and `command=reset` with the token parameter to recycle an existing token's served-question set."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

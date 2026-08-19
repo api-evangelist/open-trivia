@@ -1,0 +1,184 @@
+{
+  "item": [
+    {
+      "id": "5f726062-f384-472f-879f-2e6d2c243bb3",
+      "name": "Categories",
+      "description": {
+        "content": "Operations for discovering trivia category metadata and counts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f07c3ca5-c5d9-4251-829e-bc1ffc5df6f3",
+          "name": "Open Trivia List Trivia Categories",
+          "request": {
+            "name": "Open Trivia List Trivia Categories",
+            "description": {
+              "content": "Return the full list of trivia categories supported by the Open Trivia Database, each with its numeric identifier and human-readable name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_category.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1314db82-26b6-4543-a48c-20be3ec94950",
+              "name": "The list of available trivia categories.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_category.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trivia_categories\": [\n    {\n      \"id\": 9,\n      \"name\": \"General Knowledge\"\n    },\n    {\n      \"id\": 10,\n      \"name\": \"Entertainment: Books\"\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Entertainment: Film\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"Entertainment: Music\"\n    },\n    {\n      \"id\": 17,\n      \"name\": \"Science &amp; Nature\"\n    },\n    {\n      \"id\": 18,\n      \"name\": \"Science: Computers\"\n    },\n    {\n      \"id\": 19,\n      \"name\": \"Science: Mathematics\"\n    },\n    {\n      \"id\": 21,\n      \"name\": \"Sports\"\n    },\n    {\n      \"id\": 22,\n      \"name\": \"Geography\"\n    },\n    {\n      \"id\": 23,\n      \"name\": \"History\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da0a0012-b64d-4fe6-8410-96fcbc25f76b",
+          "name": "Open Trivia Get Category Question Count",
+          "request": {
+            "name": "Open Trivia Get Category Question Count",
+            "description": {
+              "content": "Return the number of questions available in a single category broken down by difficulty level (easy, medium, hard) plus the overall total.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_count.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<integer>",
+                  "description": "(Required) Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "269ad7e0-bbdd-475b-bfcd-c25d3d0bfaf6",
+              "name": "Question counts for the requested category.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_count.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "9"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"category_id\": 9,\n  \"category_question_count\": {\n    \"total_question_count\": 469,\n    \"total_easy_question_count\": 215,\n    \"total_medium_question_count\": 177,\n    \"total_hard_question_count\": 77\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opentdb.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1268cc3d-8fa7-4441-9f34-7d6aa7c76125",
+    "name": "Open Trivia Database Categories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Trivia Database (OpenTDB) is a free, user-contributed trivia\nquestion database operated by Pixeltail Games LLC. This OpenAPI specification\ndescribes the public JSON REST API exposed at https://opentdb.com.\n\nThe API supports five endpoints:\n- /api.php — retrieve a batch of trivia questions\n- /api_category.php — list all categories and their IDs\n- /api_count.php — get question counts per category broken down by difficulty\n- /api_count_global.php — return global database statistics\n- /api_token.php — request, reset, or recycle a session token\n\nAll endpoints return JSON. The API enforces a documented rate limit of one\nrequest per IP every five seconds (HTTP 429). Questions are licensed under\nCreative Commons Attribution-ShareAlike 4.0 International.\n\n\nContact Support:\n Name: Open Trivia Database (Pixeltail Games)",
+      "type": "text/plain"
+    }
+  }
+}

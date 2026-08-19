@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "468bba4f-bba5-4197-bf52-1e1dc7683425",
+      "name": "Tokens",
+      "description": {
+        "content": "Operations for managing session tokens that prevent duplicate questions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef1fb32a-1231-404f-9048-678b7806308b",
+          "name": "Open Trivia Manage Session Token",
+          "request": {
+            "name": "Open Trivia Manage Session Token",
+            "description": {
+              "content": "Request a new session token or reset an existing one. Session tokens prevent duplicate questions across calls and expire after six hours of inactivity. Use `command=request` to obtain a new token and `command=reset` with the token parameter to recycle an existing token's served-question set.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_token.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "command",
+                  "value": "<string>",
+                  "description": "(Required) The token operation to perform."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Existing session token. Required when `command=reset`; ignored when `command=request`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e351c88d-52a7-4371-8acb-acbd1014ae3d",
+              "name": "The token response envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_token.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "command",
+                      "value": "request"
+                    },
+                    {
+                      "key": "token",
+                      "value": "5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response_code\": 0,\n  \"response_message\": \"Token Generated Successfully!\",\n  \"token\": \"5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opentdb.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "799775df-83a7-4c2b-a509-0af84f3ef550",
+    "name": "Open Trivia Database Categories Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Trivia Database (OpenTDB) is a free, user-contributed trivia\nquestion database operated by Pixeltail Games LLC. This OpenAPI specification\ndescribes the public JSON REST API exposed at https://opentdb.com.\n\nThe API supports five endpoints:\n- /api.php — retrieve a batch of trivia questions\n- /api_category.php — list all categories and their IDs\n- /api_count.php — get question counts per category broken down by difficulty\n- /api_count_global.php — return global database statistics\n- /api_token.php — request, reset, or recycle a session token\n\nAll endpoints return JSON. The API enforces a documented rate limit of one\nrequest per IP every five seconds (HTTP 429). Questions are licensed under\nCreative Commons Attribution-ShareAlike 4.0 International.\n\n\nContact Support:\n Name: Open Trivia Database (Pixeltail Games)",
+      "type": "text/plain"
+    }
+  }
+}

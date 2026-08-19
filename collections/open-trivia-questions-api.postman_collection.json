@@ -1,0 +1,224 @@
+{
+  "item": [
+    {
+      "id": "bbe1e4b0-a7ef-4422-9eec-82960d1161ea",
+      "name": "Questions",
+      "description": {
+        "content": "Operations for retrieving trivia questions from the database.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1d03ae2-c3a7-4c32-9ba6-e7ae8b22fb8b",
+          "name": "Open Trivia Get Trivia Questions",
+          "request": {
+            "name": "Open Trivia Get Trivia Questions",
+            "description": {
+              "content": "Retrieve a batch of trivia questions from the Open Trivia Database. Questions can be filtered by category, difficulty, and type. A session token may be supplied to prevent the same question from being returned twice within a six-hour window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "10",
+                  "description": "(Required) Number of questions to return. Must be between 1 and 50 inclusive."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<integer>",
+                  "description": "Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32). Omit to draw from any category."
+                },
+                {
+                  "disabled": false,
+                  "key": "difficulty",
+                  "value": "<string>",
+                  "description": "Restrict questions to a single difficulty level."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Restrict questions to a single answer format. `multiple` returns four-option multiple-choice questions; `boolean` returns true/false questions."
+                },
+                {
+                  "disabled": false,
+                  "key": "encode",
+                  "value": "<string>",
+                  "description": "Response encoding for textual fields. Defaults to HTML-entity encoded plain text. `urlLegacy` applies legacy URL encoding, `url3986` applies RFC 3986 percent encoding, and `base64` applies Base64 encoding."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Session token returned by /api_token.php. When provided, the API tracks which questions have been served and avoids returning duplicates until the token is reset or expires."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "093c66a2-9fb4-4932-a600-b93fe08644b0",
+              "name": "A trivia question response envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    },
+                    {
+                      "key": "category",
+                      "value": "9"
+                    },
+                    {
+                      "key": "difficulty",
+                      "value": "medium"
+                    },
+                    {
+                      "key": "type",
+                      "value": "multiple"
+                    },
+                    {
+                      "key": "encode",
+                      "value": "base64"
+                    },
+                    {
+                      "key": "token",
+                      "value": "5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response_code\": 0,\n  \"results\": [\n    {\n      \"type\": \"multiple\",\n      \"difficulty\": \"medium\",\n      \"category\": \"Science &amp; Nature\",\n      \"question\": \"What is the chemical symbol for gold?\",\n      \"correct_answer\": \"Au\",\n      \"incorrect_answers\": [\n        \"Ag\",\n        \"Go\",\n        \"Gd\"\n      ]\n    },\n    {\n      \"type\": \"boolean\",\n      \"difficulty\": \"easy\",\n      \"category\": \"General Knowledge\",\n      \"question\": \"The Pacific Ocean is the largest ocean on Earth.\",\n      \"correct_answer\": \"True\",\n      \"incorrect_answers\": [\n        \"False\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f13cd31c-c1b4-44bb-934e-84bd77ba7483",
+              "name": "Rate limit exceeded (one request per IP every five seconds).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    },
+                    {
+                      "key": "category",
+                      "value": "9"
+                    },
+                    {
+                      "key": "difficulty",
+                      "value": "medium"
+                    },
+                    {
+                      "key": "type",
+                      "value": "multiple"
+                    },
+                    {
+                      "key": "encode",
+                      "value": "base64"
+                    },
+                    {
+                      "key": "token",
+                      "value": "5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"response_code\": 5,\n  \"response_message\": \"Rate Limit Exceeded\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opentdb.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f2423b0b-a971-47ed-adf0-8ab2192fa807",
+    "name": "Open Trivia Database Categories Questions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Trivia Database (OpenTDB) is a free, user-contributed trivia\nquestion database operated by Pixeltail Games LLC. This OpenAPI specification\ndescribes the public JSON REST API exposed at https://opentdb.com.\n\nThe API supports five endpoints:\n- /api.php — retrieve a batch of trivia questions\n- /api_category.php — list all categories and their IDs\n- /api_count.php — get question counts per category broken down by difficulty\n- /api_count_global.php — return global database statistics\n- /api_token.php — request, reset, or recycle a session token\n\nAll endpoints return JSON. The API enforces a documented rate limit of one\nrequest per IP every five seconds (HTTP 429). Questions are licensed under\nCreative Commons Attribution-ShareAlike 4.0 International.\n\n\nContact Support:\n Name: Open Trivia Database (Pixeltail Games)",
+      "type": "text/plain"
+    }
+  }
+}

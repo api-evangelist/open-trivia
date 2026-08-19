@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Open Trivia Database Categories API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Open Trivia List Trivia Categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_category.php"
+          },
+          "docs": "Return the full list of trivia categories supported by the Open Trivia Database, each with its numeric identifier and human-readable name."
+        },
+        {
+          "info": {
+            "name": "Open Trivia Get Category Question Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opentdb.com/api_count.php",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Numeric category identifier. Use /api_category.php to discover valid category IDs (range 9-32)."
+              }
+            ]
+          },
+          "docs": "Return the number of questions available in a single category broken down by difficulty level (easy, medium, hard) plus the overall total."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

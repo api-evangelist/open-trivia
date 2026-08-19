@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "1f72ada5-244d-4abd-a88d-a4c7877c5e31",
+      "name": "Statistics",
+      "description": {
+        "content": "Operations for inspecting overall database statistics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdfca64b-f077-4b6f-b6a7-c43564c8d681",
+          "name": "Open Trivia Get Global Question Count",
+          "request": {
+            "name": "Open Trivia Get Global Question Count",
+            "description": {
+              "content": "Return overall question counts for the Open Trivia Database — total questions, pending submissions, verified questions, and rejected submissions — both globally and per category.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api_count_global.php"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "008446af-b215-4979-9f53-c4d511609f20",
+              "name": "Global database statistics broken down per category.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api_count_global.php"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"overall\": {\n    \"total_num_of_questions\": 21531,\n    \"total_num_of_pending_questions\": 10828,\n    \"total_num_of_verified_questions\": 5296,\n    \"total_num_of_rejected_questions\": 5424\n  },\n  \"categories\": {\n    \"9\": {\n      \"total_num_of_questions\": 469,\n      \"total_num_of_pending_questions\": 200,\n      \"total_num_of_verified_questions\": 215,\n      \"total_num_of_rejected_questions\": 54\n    },\n    \"17\": {\n      \"total_num_of_questions\": 230,\n      \"total_num_of_pending_questions\": 110,\n      \"total_num_of_verified_questions\": 95,\n      \"total_num_of_rejected_questions\": 25\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opentdb.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d8875438-3a6b-490e-89df-79a72ebfcc30",
+    "name": "Open Trivia Database Categories Statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Open Trivia Database (OpenTDB) is a free, user-contributed trivia\nquestion database operated by Pixeltail Games LLC. This OpenAPI specification\ndescribes the public JSON REST API exposed at https://opentdb.com.\n\nThe API supports five endpoints:\n- /api.php — retrieve a batch of trivia questions\n- /api_category.php — list all categories and their IDs\n- /api_count.php — get question counts per category broken down by difficulty\n- /api_count_global.php — return global database statistics\n- /api_token.php — request, reset, or recycle a session token\n\nAll endpoints return JSON. The API enforces a documented rate limit of one\nrequest per IP every five seconds (HTTP 429). Questions are licensed under\nCreative Commons Attribution-ShareAlike 4.0 International.\n\n\nContact Support:\n Name: Open Trivia Database (Pixeltail Games)",
+      "type": "text/plain"
+    }
+  }
+}
