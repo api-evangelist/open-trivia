@@ -21,7 +21,7 @@ accessModel:
 image: https://opentdb.com/images/logo-banner.png
 humanURL: https://opentdb.com
 baseURL: https://opentdb.com
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-05-28'
 modified: '2026-05-30'
 x-source: public-apis/public-apis
