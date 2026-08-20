@@ -47,6 +47,13 @@ tags:
   - Quiz
   - Open Data
   - Public APIs
+  - Open-Source
+tags_raw:
+  - Trivia
+  - Games And Comics
+  - Quiz
+  - Open Data
+  - Public APIs
   - Open Source
 apis:
 - aid: open-trivia:open-trivia-categories-api
