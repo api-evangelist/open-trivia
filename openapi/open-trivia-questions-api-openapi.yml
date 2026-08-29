@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Open Trivia Database Categories Questions API
   version: '1.0'
@@ -164,6 +164,19 @@ paths:
       x-microcks-default: multipleChoiceBatch
 components:
   schemas:
+    QuestionResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResponseEnvelope'
+      - type: object
+        description: Response envelope returned by /api.php containing the question batch.
+        required:
+        - results
+        properties:
+          results:
+            type: array
+            description: Array of trivia questions matching the request parameters.
+            items:
+              $ref: '#/components/schemas/Question'
     Question:
       type: object
       description: A single trivia question with its category, difficulty, and answers.
@@ -211,19 +224,6 @@ components:
           - Ag
           - Go
           - Gd
-    QuestionResponse:
-      allOf:
-      - $ref: '#/components/schemas/ResponseEnvelope'
-      - type: object
-        description: Response envelope returned by /api.php containing the question batch.
-        required:
-        - results
-        properties:
-          results:
-            type: array
-            description: Array of trivia questions matching the request parameters.
-            items:
-              $ref: '#/components/schemas/Question'
     ResponseEnvelope:
       type: object
       description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.

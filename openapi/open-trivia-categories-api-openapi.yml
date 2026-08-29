@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Open Trivia Database Categories API
   version: '1.0'
@@ -129,23 +129,19 @@ paths:
       x-microcks-default: generalKnowledge
 components:
   schemas:
-    Category:
+    CategoryCountResponse:
       type: object
-      description: A trivia category identifier and name pair.
+      description: Response returned by /api_count.php.
       required:
-      - id
-      - name
+      - category_id
+      - category_question_count
       properties:
-        id:
+        category_id:
           type: integer
-          description: Numeric category identifier.
-          minimum: 9
-          maximum: 32
+          description: Numeric identifier for the requested category.
           example: 9
-        name:
-          type: string
-          description: Human-readable category name.
-          example: General Knowledge
+        category_question_count:
+          $ref: '#/components/schemas/CategoryQuestionCount'
     CategoryQuestionCount:
       type: object
       description: Question counts for a single category broken down by difficulty.
@@ -182,16 +178,20 @@ components:
           description: All trivia categories currently available in the database.
           items:
             $ref: '#/components/schemas/Category'
-    CategoryCountResponse:
+    Category:
       type: object
-      description: Response returned by /api_count.php.
+      description: A trivia category identifier and name pair.
       required:
-      - category_id
-      - category_question_count
+      - id
+      - name
       properties:
-        category_id:
+        id:
           type: integer
-          description: Numeric identifier for the requested category.
+          description: Numeric category identifier.
+          minimum: 9
+          maximum: 32
           example: 9
-        category_question_count:
-          $ref: '#/components/schemas/CategoryQuestionCount'
+        name:
+          type: string
+          description: Human-readable category name.
+          example: General Knowledge
