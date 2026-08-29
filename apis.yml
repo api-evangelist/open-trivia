@@ -7,6 +7,18 @@ description: >-
   Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point of use, and enforces a
   single throttling rule: one request per IP every five seconds.
 url: https://opentdb.com/api_config.php
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
