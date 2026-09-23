@@ -1,10 +1,7 @@
 {
   "provider": "open-trivia",
   "sources": [
-    "open-trivia-categories-api-openapi.yml",
-    "open-trivia-questions-api-openapi.yml",
-    "open-trivia-statistics-api-openapi.yml",
-    "open-trivia-tokens-api-openapi.yml"
+    "_ae-authored/open-trivia-openapi.yml"
   ],
   "outputs": [
     "open-trivia-categories-api-openapi.yml",
@@ -16,11 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "open-trivia-categories-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "open-trivia-questions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "open-trivia-statistics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "open-trivia-tokens-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "open-trivia-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "open-trivia-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "open-trivia-questions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "open-trivia-statistics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "open-trivia-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

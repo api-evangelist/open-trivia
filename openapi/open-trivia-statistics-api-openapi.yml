@@ -1,34 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Open Trivia Database Categories Statistics API
+  title: Open Trivia Database Statistics API
   version: '1.0'
   description: 'The Open Trivia Database (OpenTDB) is a free, user-contributed trivia
 
-    question database operated by Pixeltail Games LLC. This OpenAPI specification
-
-    describes the public JSON REST API exposed at https://opentdb.com.
-
-
-    The API supports five endpoints:
-
-    - /api.php — retrieve a batch of trivia questions
-
-    - /api_category.php — list all categories and their IDs
-
-    - /api_count.php — get question counts per category broken down by difficulty
-
-    - /api_count_global.php — return global database statistics
-
-    - /api_token.php — request, reset, or recycle a session token
-
-
-    All endpoints return JSON. The API enforces a documented rate limit of one
-
-    request per IP every five seconds (HTTP 429). Questions are licensed under
-
-    Creative Commons Attribution-ShareAlike 4.0 International.
-
-    '
+    question database operated by Pixeltail Games LLC.'
   contact:
     name: Open Trivia Database (Pixeltail Games)
     url: https://opentdb.com/contact.php

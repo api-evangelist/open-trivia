@@ -4,31 +4,7 @@ info:
   version: '1.0'
   description: 'The Open Trivia Database (OpenTDB) is a free, user-contributed trivia
 
-    question database operated by Pixeltail Games LLC. This OpenAPI specification
-
-    describes the public JSON REST API exposed at https://opentdb.com.
-
-
-    The API supports five endpoints:
-
-    - /api.php — retrieve a batch of trivia questions
-
-    - /api_category.php — list all categories and their IDs
-
-    - /api_count.php — get question counts per category broken down by difficulty
-
-    - /api_count_global.php — return global database statistics
-
-    - /api_token.php — request, reset, or recycle a session token
-
-
-    All endpoints return JSON. The API enforces a documented rate limit of one
-
-    request per IP every five seconds (HTTP 429). Questions are licensed under
-
-    Creative Commons Attribution-ShareAlike 4.0 International.
-
-    '
+    question database operated by Pixeltail Games LLC.'
   contact:
     name: Open Trivia Database (Pixeltail Games)
     url: https://opentdb.com/contact.php
@@ -129,19 +105,34 @@ paths:
       x-microcks-default: generalKnowledge
 components:
   schemas:
-    CategoryCountResponse:
+    Category:
       type: object
-      description: Response returned by /api_count.php.
+      description: A trivia category identifier and name pair.
       required:
-      - category_id
-      - category_question_count
+      - id
+      - name
       properties:
-        category_id:
+        id:
           type: integer
-          description: Numeric identifier for the requested category.
+          description: Numeric category identifier.
+          minimum: 9
+          maximum: 32
           example: 9
-        category_question_count:
-          $ref: '#/components/schemas/CategoryQuestionCount'
+        name:
+          type: string
+          description: Human-readable category name.
+          example: General Knowledge
+    CategoryListResponse:
+      type: object
+      description: Response returned by /api_category.php.
+      required:
+      - trivia_categories
+      properties:
+        trivia_categories:
+          type: array
+          description: All trivia categories currently available in the database.
+          items:
+            $ref: '#/components/schemas/Category'
     CategoryQuestionCount:
       type: object
       description: Question counts for a single category broken down by difficulty.
@@ -167,31 +158,16 @@ components:
           type: integer
           description: Number of hard questions in this category.
           example: 77
-    CategoryListResponse:
+    CategoryCountResponse:
       type: object
-      description: Response returned by /api_category.php.
+      description: Response returned by /api_count.php.
       required:
-      - trivia_categories
+      - category_id
+      - category_question_count
       properties:
-        trivia_categories:
-          type: array
-          description: All trivia categories currently available in the database.
-          items:
-            $ref: '#/components/schemas/Category'
-    Category:
-      type: object
-      description: A trivia category identifier and name pair.
-      required:
-      - id
-      - name
-      properties:
-        id:
+        category_id:
           type: integer
-          description: Numeric category identifier.
-          minimum: 9
-          maximum: 32
+          description: Numeric identifier for the requested category.
           example: 9
-        name:
-          type: string
-          description: Human-readable category name.
-          example: General Knowledge
+        category_question_count:
+          $ref: '#/components/schemas/CategoryQuestionCount'
