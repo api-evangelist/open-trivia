@@ -62,20 +62,6 @@ paths:
       x-microcks-default: globalStats
 components:
   schemas:
-    GlobalCountResponse:
-      type: object
-      description: Response returned by /api_count_global.php.
-      required:
-      - overall
-      - categories
-      properties:
-        overall:
-          $ref: '#/components/schemas/GlobalCounts'
-        categories:
-          type: object
-          description: Per-category breakdown keyed by numeric category identifier as a string. Each value uses the same shape as the `overall` block.
-          additionalProperties:
-            $ref: '#/components/schemas/GlobalCounts'
     GlobalCounts:
       type: object
       description: Aggregate question counts at either the global or per-category level.
@@ -101,3 +87,17 @@ components:
           type: integer
           description: Questions reviewed and rejected by moderators.
           example: 5424
+    GlobalCountResponse:
+      type: object
+      description: Response returned by /api_count_global.php.
+      required:
+      - overall
+      - categories
+      properties:
+        overall:
+          $ref: '#/components/schemas/GlobalCounts'
+        categories:
+          type: object
+          description: Per-category breakdown keyed by numeric category identifier as a string. Each value uses the same shape as the `overall` block.
+          additionalProperties:
+            $ref: '#/components/schemas/GlobalCounts'

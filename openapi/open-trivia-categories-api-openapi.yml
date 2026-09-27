@@ -105,34 +105,19 @@ paths:
       x-microcks-default: generalKnowledge
 components:
   schemas:
-    Category:
+    CategoryCountResponse:
       type: object
-      description: A trivia category identifier and name pair.
+      description: Response returned by /api_count.php.
       required:
-      - id
-      - name
+      - category_id
+      - category_question_count
       properties:
-        id:
+        category_id:
           type: integer
-          description: Numeric category identifier.
-          minimum: 9
-          maximum: 32
+          description: Numeric identifier for the requested category.
           example: 9
-        name:
-          type: string
-          description: Human-readable category name.
-          example: General Knowledge
-    CategoryListResponse:
-      type: object
-      description: Response returned by /api_category.php.
-      required:
-      - trivia_categories
-      properties:
-        trivia_categories:
-          type: array
-          description: All trivia categories currently available in the database.
-          items:
-            $ref: '#/components/schemas/Category'
+        category_question_count:
+          $ref: '#/components/schemas/CategoryQuestionCount'
     CategoryQuestionCount:
       type: object
       description: Question counts for a single category broken down by difficulty.
@@ -158,16 +143,31 @@ components:
           type: integer
           description: Number of hard questions in this category.
           example: 77
-    CategoryCountResponse:
+    CategoryListResponse:
       type: object
-      description: Response returned by /api_count.php.
+      description: Response returned by /api_category.php.
       required:
-      - category_id
-      - category_question_count
+      - trivia_categories
       properties:
-        category_id:
+        trivia_categories:
+          type: array
+          description: All trivia categories currently available in the database.
+          items:
+            $ref: '#/components/schemas/Category'
+    Category:
+      type: object
+      description: A trivia category identifier and name pair.
+      required:
+      - id
+      - name
+      properties:
+        id:
           type: integer
-          description: Numeric identifier for the requested category.
+          description: Numeric category identifier.
+          minimum: 9
+          maximum: 32
           example: 9
-        category_question_count:
-          $ref: '#/components/schemas/CategoryQuestionCount'
+        name:
+          type: string
+          description: Human-readable category name.
+          example: General Knowledge

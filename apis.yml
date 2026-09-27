@@ -59,7 +59,7 @@ tags:
   - Quiz
   - Open Data
   - Public APIs
-  - Open-Source
+  - Open Source
 tags_raw:
   - Trivia
   - Games And Comics
@@ -67,12 +67,12 @@ tags_raw:
   - Open Data
   - Public APIs
   - Open Source
+  - Open-Source
 apis:
 - aid: open-trivia:open-trivia-categories-api
   name: Open Trivia Database Categories API
   description: Operations for discovering trivia category metadata and counts.
   humanURL: https://opentdb.com/api_config.php
-  baseURL: https://opentdb.com
   tags:
   - Categories
   properties:
@@ -110,7 +110,6 @@ apis:
   name: Open Trivia Database Questions API
   description: Operations for retrieving trivia questions from the database.
   humanURL: https://opentdb.com/api_config.php
-  baseURL: https://opentdb.com
   tags:
   - Questions
   properties:
@@ -148,7 +147,6 @@ apis:
   name: Open Trivia Database Statistics API
   description: Operations for inspecting overall database statistics.
   humanURL: https://opentdb.com/api_config.php
-  baseURL: https://opentdb.com
   tags:
   - Statistics
   properties:
@@ -186,7 +184,6 @@ apis:
   name: Open Trivia Database Tokens API
   description: Operations for managing session tokens that prevent duplicate questions.
   humanURL: https://opentdb.com/api_config.php
-  baseURL: https://opentdb.com
   tags:
   - Tokens
   properties:
