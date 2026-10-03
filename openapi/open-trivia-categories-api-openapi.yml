@@ -143,17 +143,6 @@ components:
           type: integer
           description: Number of hard questions in this category.
           example: 77
-    CategoryListResponse:
-      type: object
-      description: Response returned by /api_category.php.
-      required:
-      - trivia_categories
-      properties:
-        trivia_categories:
-          type: array
-          description: All trivia categories currently available in the database.
-          items:
-            $ref: '#/components/schemas/Category'
     Category:
       type: object
       description: A trivia category identifier and name pair.
@@ -171,3 +160,14 @@ components:
           type: string
           description: Human-readable category name.
           example: General Knowledge
+    CategoryListResponse:
+      type: object
+      description: Response returned by /api_category.php.
+      required:
+      - trivia_categories
+      properties:
+        trivia_categories:
+          type: array
+          description: All trivia categories currently available in the database.
+          items:
+            $ref: '#/components/schemas/Category'

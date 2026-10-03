@@ -78,16 +78,6 @@ paths:
       x-microcks-default: tokenIssued
 components:
   schemas:
-    TokenResponse:
-      allOf:
-      - $ref: '#/components/schemas/ResponseEnvelope'
-      - type: object
-        description: Response returned by /api_token.php.
-        properties:
-          token:
-            type: string
-            description: The session token. Present on `command=request` and on a successful `command=reset` call.
-            example: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
     ResponseEnvelope:
       type: object
       description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.
@@ -109,3 +99,13 @@ components:
           type: string
           description: Human-readable description of the response code (returned for token endpoints).
           example: Token Generated Successfully!
+    TokenResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResponseEnvelope'
+      - type: object
+        description: Response returned by /api_token.php.
+        properties:
+          token:
+            type: string
+            description: The session token. Present on `command=request` and on a successful `command=reset` call.
+            example: 5b76e266e1955dc8c216be34a8280d1f8e2d9f82d3d93a755f772d2537e14b25
