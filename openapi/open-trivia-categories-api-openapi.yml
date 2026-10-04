@@ -105,19 +105,6 @@ paths:
       x-microcks-default: generalKnowledge
 components:
   schemas:
-    CategoryCountResponse:
-      type: object
-      description: Response returned by /api_count.php.
-      required:
-      - category_id
-      - category_question_count
-      properties:
-        category_id:
-          type: integer
-          description: Numeric identifier for the requested category.
-          example: 9
-        category_question_count:
-          $ref: '#/components/schemas/CategoryQuestionCount'
     CategoryQuestionCount:
       type: object
       description: Question counts for a single category broken down by difficulty.
@@ -143,6 +130,17 @@ components:
           type: integer
           description: Number of hard questions in this category.
           example: 77
+    CategoryListResponse:
+      type: object
+      description: Response returned by /api_category.php.
+      required:
+      - trivia_categories
+      properties:
+        trivia_categories:
+          type: array
+          description: All trivia categories currently available in the database.
+          items:
+            $ref: '#/components/schemas/Category'
     Category:
       type: object
       description: A trivia category identifier and name pair.
@@ -160,14 +158,16 @@ components:
           type: string
           description: Human-readable category name.
           example: General Knowledge
-    CategoryListResponse:
+    CategoryCountResponse:
       type: object
-      description: Response returned by /api_category.php.
+      description: Response returned by /api_count.php.
       required:
-      - trivia_categories
+      - category_id
+      - category_question_count
       properties:
-        trivia_categories:
-          type: array
-          description: All trivia categories currently available in the database.
-          items:
-            $ref: '#/components/schemas/Category'
+        category_id:
+          type: integer
+          description: Numeric identifier for the requested category.
+          example: 9
+        category_question_count:
+          $ref: '#/components/schemas/CategoryQuestionCount'

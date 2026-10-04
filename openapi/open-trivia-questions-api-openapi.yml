@@ -140,40 +140,6 @@ paths:
       x-microcks-default: multipleChoiceBatch
 components:
   schemas:
-    QuestionResponse:
-      allOf:
-      - $ref: '#/components/schemas/ResponseEnvelope'
-      - type: object
-        description: Response envelope returned by /api.php containing the question batch.
-        required:
-        - results
-        properties:
-          results:
-            type: array
-            description: Array of trivia questions matching the request parameters.
-            items:
-              $ref: '#/components/schemas/Question'
-    ResponseEnvelope:
-      type: object
-      description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.
-      required:
-      - response_code
-      properties:
-        response_code:
-          type: integer
-          description: 'Outcome code: 0 success, 1 no results (not enough questions), 2 invalid parameter, 3 token not found, 4 token empty (all questions served), 5 rate limit exceeded.'
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          example: 0
-        response_message:
-          type: string
-          description: Human-readable description of the response code (returned for token endpoints).
-          example: Token Generated Successfully!
     Question:
       type: object
       description: A single trivia question with its category, difficulty, and answers.
@@ -221,3 +187,37 @@ components:
           - Ag
           - Go
           - Gd
+    ResponseEnvelope:
+      type: object
+      description: Standard response envelope used across all Open Trivia Database endpoints. The `response_code` field signals success or the specific failure mode that occurred.
+      required:
+      - response_code
+      properties:
+        response_code:
+          type: integer
+          description: 'Outcome code: 0 success, 1 no results (not enough questions), 2 invalid parameter, 3 token not found, 4 token empty (all questions served), 5 rate limit exceeded.'
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          example: 0
+        response_message:
+          type: string
+          description: Human-readable description of the response code (returned for token endpoints).
+          example: Token Generated Successfully!
+    QuestionResponse:
+      allOf:
+      - $ref: '#/components/schemas/ResponseEnvelope'
+      - type: object
+        description: Response envelope returned by /api.php containing the question batch.
+        required:
+        - results
+        properties:
+          results:
+            type: array
+            description: Array of trivia questions matching the request parameters.
+            items:
+              $ref: '#/components/schemas/Question'
