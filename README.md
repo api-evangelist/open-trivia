@@ -1,4 +1,4 @@
-# Open Trivia Database (open-trivia)
+# Open Trivia Database
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,80 +66,170 @@
 
 The Open Trivia Database (OpenTDB) is a free, user-contributed trivia question database operated by Pixeltail Games LLC. It offers a JSON REST API for retrieving thousands of community-verified trivia questions across 24 categories and three difficulty levels, with optional session tokens to prevent duplicate questions. The service is licensed Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0), is free at the point of use, and enforces a single throttling rule: one request per IP every five seconds.
 
-**APIs.json:** [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
+**Areas:** Trivia · Quiz · Open Data · Public APIs · Open Source
 
-## Tags
+## Open Trivia Database on APIs.io
 
-- Trivia
-- Games And Comics
-- Quiz
-- Open Data
-- Public APIs
-- Open Source
+Everything profiled for Open Trivia Database is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/open-trivia/](https://apis.io/providers/open-trivia/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-05-28
-- **Modified:** 2026-05-30
+- [Open Trivia Database Categories API](https://apis.io/apis/open-trivia/open-trivia-categories-api/) — Operations for discovering trivia category metadata and counts.
+- [Open Trivia Database Questions API](https://apis.io/apis/open-trivia/open-trivia-questions-api/) — Operations for retrieving trivia questions from the database.
+- [Open Trivia Database Statistics API](https://apis.io/apis/open-trivia/open-trivia-statistics-api/) — Operations for inspecting overall database statistics.
+- [Open Trivia Database Tokens API](https://apis.io/apis/open-trivia/open-trivia-tokens-api/) — Operations for managing session tokens that prevent duplicate questions.
 
-## APIs
+### Published properties
 
-### Open Trivia Database API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-JSON REST API that returns multiple-choice and true/false trivia questions drawn from a community-curated database of over 5,000 verified questions across 24 categories. Supports filtering by category, difficulty, and question type, optional response encoding (HTML entities, URL legacy, RFC 3986, Base64), and session tokens to prevent duplicate questions within a six-hour window.
+#### Agentic access (1)
 
-- **Human URL:** [https://opentdb.com/api_config.php](https://opentdb.com/api_config.php)
-- **Base URL:** `https://opentdb.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Open Trivia Agentic Access](https://apis.io/agentic-access/open-trivia/open-trivia-agentic-access/)
 
-- Trivia
-- Quiz
-- Questions
-- Games And Comics
+#### JSON Schema (9)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://opentdb.com/api_config.php)
-- [OpenAPI](openapi/open-trivia-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/open-trivia.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/open-trivia.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/open-trivia-question-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/open-trivia-category-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/open-trivia-question-structure.json)
-- [JSON-LD](json-ld/open-trivia-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Spectral Rules](rules/open-trivia-rules.yml)
-- [Rate Limits](rate-limits/open-trivia-rate-limits.yml)
-- [Vocabulary](vocabulary/open-trivia-vocabulary.yml)
-- [Examples](examples/open-trivia-question-response-example.json)
-- [Sign Up](https://opentdb.com/api_config.php)
-- [Contribute Questions](https://opentdb.com/contribute.php)
-- [Browse Questions](https://opentdb.com/browse.php)
-- [Game Link](https://opentdb.com/game.php)
-- [Statistics](https://opentdb.com/api_count_global.php)
+- [Category](https://apis.io/schemas/open-trivia/open-trivia-category/)
+- [CategoryCountResponse](https://apis.io/schemas/open-trivia/open-trivia-category-count-response/)
+- [CategoryListResponse](https://apis.io/schemas/open-trivia/open-trivia-category-list-response/)
+- [CategoryQuestionCount](https://apis.io/schemas/open-trivia/open-trivia-category-question-count/)
+- [GlobalCountResponse](https://apis.io/schemas/open-trivia/open-trivia-global-count-response/)
+- [GlobalCounts](https://apis.io/schemas/open-trivia/open-trivia-global-counts/)
+- [Question](https://apis.io/schemas/open-trivia/open-trivia-question/)
+- [QuestionResponse](https://apis.io/schemas/open-trivia/open-trivia-question-response/)
+- [TokenResponse](https://apis.io/schemas/open-trivia/open-trivia-token-response/)
 
-## Common Properties
+#### JSON Structure (9)
+
+Data models expressed in JSON Structure.
+
+- [Open Trivia Category Count Response Structure](https://apis.io/json-structure/open-trivia/open-trivia-category-count-response-structure/)
+- [Open Trivia Category List Response Structure](https://apis.io/json-structure/open-trivia/open-trivia-category-list-response-structure/)
+- [Open Trivia Category Question Count Structure](https://apis.io/json-structure/open-trivia/open-trivia-category-question-count-structure/)
+- [Open Trivia Category Structure](https://apis.io/json-structure/open-trivia/open-trivia-category-structure/)
+- [Open Trivia Global Count Response Structure](https://apis.io/json-structure/open-trivia/open-trivia-global-count-response-structure/)
+- [Open Trivia Global Counts Structure](https://apis.io/json-structure/open-trivia/open-trivia-global-counts-structure/)
+- [Open Trivia Question Response Structure](https://apis.io/json-structure/open-trivia/open-trivia-question-response-structure/)
+- [Open Trivia Question Structure](https://apis.io/json-structure/open-trivia/open-trivia-question-structure/)
+- [Open Trivia Token Response Structure](https://apis.io/json-structure/open-trivia/open-trivia-token-response-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Open Trivia Context](https://apis.io/jsonld/open-trivia/open-trivia-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Open Trivia Vocabulary](https://apis.io/vocabularies/open-trivia/open-trivia-vocabulary/)
+
+#### Examples (9)
+
+Example requests and responses.
+
+- [Open Trivia Category Count Response Example](https://apis.io/examples/open-trivia/open-trivia-category-count-response-example/)
+- [Open Trivia Category Example](https://apis.io/examples/open-trivia/open-trivia-category-example/)
+- [Open Trivia Category List Response Example](https://apis.io/examples/open-trivia/open-trivia-category-list-response-example/)
+- [Open Trivia Category Question Count Example](https://apis.io/examples/open-trivia/open-trivia-category-question-count-example/)
+- [Open Trivia Global Count Response Example](https://apis.io/examples/open-trivia/open-trivia-global-count-response-example/)
+- [Open Trivia Global Counts Example](https://apis.io/examples/open-trivia/open-trivia-global-counts-example/)
+- [Open Trivia Question Example](https://apis.io/examples/open-trivia/open-trivia-question-example/)
+- [Open Trivia Question Response Example](https://apis.io/examples/open-trivia/open-trivia-question-response-example/)
+- [Open Trivia Token Response Example](https://apis.io/examples/open-trivia/open-trivia-token-response-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Open Trivia Database API](https://apis.io/collections/open-trivia/open-open-trivia/)
+- [Open Trivia Database Categories API](https://apis.io/collections/open-trivia/open-open-trivia-categories-api/)
+- [Open Trivia Database Categories Questions API](https://apis.io/collections/open-trivia/open-open-trivia-questions-api/)
+- [Open Trivia Database Categories Statistics API](https://apis.io/collections/open-trivia/open-open-trivia-statistics-api/)
+- [Open Trivia Database Categories Tokens API](https://apis.io/collections/open-trivia/open-open-trivia-tokens-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Open Trivia Database — jsonschema rules](https://apis.io/rules/open-trivia/open-trivia-jsonschema-spectral-rules/)
+- [Open Trivia Database API Rules](https://apis.io/rules/open-trivia/open-trivia-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Open Trivia Domain Security](https://apis.io/security/open-trivia/open-trivia-domain-security/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Open Trivia Rate Limits](https://apis.io/rate-limits/open-trivia/open-trivia-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://opentdb.com)
 - [Documentation](https://opentdb.com/api_config.php)
 - [Support](https://opentdb.com/contact.php)
-- [Terms of Service](https://opentdb.com/terms.php)
-- [License](https://creativecommons.org/licenses/by-sa/4.0/)
-- [Donate](https://ko-fi.com/pixeltailgames)
-- [Public APIs Listing](https://github.com/public-apis/public-apis)
-- [Community Integrations](https://github.com/topics/opentdb)
-- [SDK](https://github.com/Elitezen/open-trivia-db-wrapper)
-- [SDK](https://github.com/MaT1g3R/Python-Trivia-API)
-- [SDK](https://github.com/crnvl/OpenTDB4j)
-- [SDK](https://github.com/blobfysh/opentdb-api)
-- [Tools](https://github.com/pipeworx-io/mcp-trivia)
-- [Tools](https://github.com/LakeYS/Discord-Trivia-Bot)
-- [Tools](https://github.com/QuartzWarrior/OTDB-Source)
-- [Code Examples](https://github.com/robinheinze/ignite-trivia)
-- [Code Examples](https://github.com/computationalcore/react-native-trivia-quiz)
-- [Code Examples](https://github.com/supershaneski/vue-quiz-app)
+- [Terms of service](https://opentdb.com/terms.php)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 25.8** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 69.6 |
+| Contract quality | 29.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 13.2 |
+
+**Agent readiness 23.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 10.8** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/open-trivia/](https://apis.io/providers/open-trivia/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Open Trivia Database: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/open-trivia/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
